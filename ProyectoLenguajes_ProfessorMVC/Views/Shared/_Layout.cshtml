@@ -1,49 +1,770 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ProyectoLenguajes_ProfessorMVC</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ProyectoLenguajes_ProfessorMVC.styles.css" asp-append-version="true" />
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Aria is a business focused HTML landing page template built with Bootstrap to help you create lead generation websites for companies and their services.">
+    <meta name="author" content="Inovatik">
+
+    <!-- OG Meta Tags to improve the way the post looks when you share the page on LinkedIn, Facebook, Google+ -->
+    <meta property="og:site_name" content="" /> <!-- website name -->
+    <meta property="og:site" content="" /> <!-- website link -->
+    <meta property="og:title" content="" /> <!-- title shown in the actual shared post -->
+    <meta property="og:description" content="" /> <!-- description shown in the actual shared post -->
+    <meta property="og:image" content="" /> <!-- image link, make sure it's jpg -->
+    <meta property="og:url" content="" /> <!-- where do you want your post to link to -->
+    <meta property="og:type" content="article" />
+
+    <!-- Website Title -->
+    <title>Info-E</title>
+
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+    <link href="css/swiper.css" rel="stylesheet">
+    <link href="css/magnific-popup.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+    <!-- Favicon  -->
+    <link rel="icon" href="images/favicon.ico">
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ProyectoLenguajes_ProfessorMVC</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+<body data-spy="scroll" data-target=".fixed-top">
+    @RenderBody()
+    <!-- Preloader -->
+    <div class="spinner-wrapper">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <!-- end of preloader -->
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top" id="navBar">
+        <!-- Text Logo - Use this if you don't have a graphic logo -->
+        <a class="navbar-brand logo-text page-scroll" href="index.html">INFO - E</a>
+
+        <!-- Image Logo
+        <a class="navbar-brand logo-image" href="index.html"><img src="images/logo.svg" alt="alternative"></a>
+        -->
+        <!-- Mobile Menu Toggle Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-awesome fas fa-bars"></span>
+            <span class="navbar-toggler-awesome fas fa-times"></span>
+        </button>
+        <!-- end of mobile menu toggle button -->
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#header">Intro<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#newsDisplayer">News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#courses">Courses</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#contact">Contact</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#register">Register</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="profileNav">Profile</a>
+                </li>
+                @*         <li class="nav-item"> *@
+                @*             <a class="nav-link page-scroll" href="#projects">PROJECTS</a> *@
+                @*         </li> *@
+
+                @*         <!-- Dropdown Menu -->           *@
+                @*         <li class="nav-item dropdown"> *@
+                @*             <a class="nav-link dropdown-toggle page-scroll" href="#about" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">ABOUT</a> *@
+                @*             <div class="dropdown-menu" aria-labelledby="navbarDropdown"> *@
+                @*                 <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">TERMS CONDITIONS</span></a> *@
+                @*                 <div class="dropdown-items-divide-hr"></div> *@
+                @*                 <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">PRIVACY POLICY</span></a> *@
+                @*             </div> *@
+                @*         </li> *@
+                @*         <!-- end of dropdown menu --> *@
+
+                @*         <li class="nav-item"> *@
+                @*             <a class="nav-link page-scroll" href="#contact">CONTACT</a> *@
+                @*         </li> *@
+                @*     </ul> *@
+                @*     <span class="nav-item social-icons"> *@
+                @*         <span class="fa-stack"> *@
+                @*             <a href="#your-link"> *@
+                @*                 <span class="hexagon"></span> *@
+                @*                 <i class="fab fa-facebook-f fa-stack-1x"></i> *@
+                @*             </a> *@
+                @*         </span> *@
+                @*         <span class="fa-stack"> *@
+                @*             <a href="#your-link"> *@
+                @*                 <span class="hexagon"></span> *@
+                @*                 <i class="fab fa-twitter fa-stack-1x"></i> *@
+                @*             </a> *@
+                @*         </span> *@
+                @*     </span> *@
+                @* </div> *@
+    </nav> <!-- end of navbar -->
+    <!-- end of navbar -->
+    <!-- Profile Modal -->
+    <div id="profileModal" class="custom-modal">
+        <div class="custom-modal-content2">
+            <!-- Close Button -->
+            <span class="custom-modal-close">&times;</span>
+
+            <!-- First Row (Image and Name/Role) -->
+            <div class="row-profile">
+                <div class="col-md-2">
+                    <!-- Profile Image (Placeholder or Actual Image) -->
+                    <img src="~/images/defaultpfp.jpg" alt="Profile Picture" class="img-fluid">
+                </div>
+                <div class="col-md-3">
+                    <!-- Name and Role -->
+                    <h3>Name</h3>
+                    <p>#ID</p>
+                </div>
+                <div class="col-md-4">
+                    <!-- Empty Column for spacing -->
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+            <!-- Second Row (Details) -->
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- Form for Additional Profile Information -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p for="pName">Name:</p>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="pName" name="pName" class="form-control" value="Example">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p for="pSname">Second Name:</p>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="pSname" name="pSname" class="form-control" value="Example">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p for="pMail">Email:</p>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" id="pMail" name="pMail" class="form-control" value="example@gmail.com">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p for="pPic">Profile picture</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="pPic" class="file-label">Choose File</label>
+                            <input type="file" id="pPic" name="pPic" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p for="pPass">Password:</p>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="password" id="pMail" name="pPass" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Third Row (Likings + Buttons) -->
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <p>Likings</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="radioDB" name="intereses" value="databases">
+                            <label class="form-check-label" for="radioDB">Databases</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="radioNetwork" name="intereses" value="networks">
+                            <label class="form-check-label" for="radioNetwork">Networks</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="radioCSecurity" name="intereses" value="cybersecurity">
+                            <label class="form-check-label" for="radioCSecurity">Cyber Security</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="radioDevelopment" name="intereses" value="development">
+                            <label class="form-check-label" for="radioDevelopment">Development</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-right">
+                </div>
+                <div class="col-md-6 text-right">
+                    <!-- Buttons aligned to the right of the Likings section -->
+                    <button class="btn">Ok!</button>
+                    <button class="btn">Delete</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - ProyectoLenguajes_ProfessorMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- Header -->
+
+    <header id="header" class="header">
+        <div class="header-content">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Right Side: Text -->
+
+                    <div class="col-lg-6">
+                        <div class="text-container">
+                            <h1>Welcome!</h1>
+                            <p>
+                                Info-E is an independent platform meant to connect students from the Business Computer major located in UCR Paraíso´s branch, feel free to check out what we have to offer!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Left Side: Form -->
+                    <div class="col-lg-6">
+                        <div class="form-container">
+                            <h2> Login</h2>
+                            <form id="loginForm" data-toggle="validator" data-focus="false">
+                                <div class="form-group">
+                                    <input type="text" class="form-control-input" id="lId" name="lId" required>
+                                    <label class="label-control" for="lId">ID</label>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password" class="form-control-input" id="lPassword" name="lPassword" required>
+                                    <label class="label-control" for="lPassword">Password</label>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" class="form-control-submit-button" onclick="AuthenticateStudent()">Let's start!</button>
+                                </div>
+                                <a class="nav-link page-scroll" href="#register"> <p>No accrount?<u> Sign in </u> </p></a>
+                            </form>
+                        </div>
+                    </div>
+
+                </div> <!-- end of row -->
+            </div> <!-- end of container -->
+        </div> <!-- end of header-content -->
+    </header> <!-- end of header -->
+
+
+
+    <div id="newsDisplayer" class="newsDisplayer">
+        <div class="col-lg-12 d-flex justify-content-center">
+            <h1>Noticias</h1>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+        <div id="newsContainer" class="newsContainer">
+
+
+            <button class="carousel-control left" id="prevBtn"> &lt </button>
+
+            <!-- Each news item -->
+            <div class="news-item">
+                <img src="~/images/project-3.jpg" alt="News Image" class="news-image" />
+                <div class="news-content">
+                    <h3 class="news-title" id="newPreviewTittle">noticia.title</h3>
+                    <a href="#" class="more-about-link">
+                        <u>More about</u>
+                    </a>
+                </div>
+            </div>
+
+            <div class="news-item">
+                <img src="~/images/project-1.jpg" alt="News Image" class="news-image" />
+                <div class="news-content">
+                    <h3 class="news-title">News Title 2</h3>
+                    <a href="#" class="more-about-link">
+                        <u>More about</u>
+                    </a>
+                </div>
+            </div>
+
+            <div class="news-item">
+                <img src="~/images/project-2.jpg" alt="News Image" class="news-image" />
+                <div class="news-content">
+                    <h3 class="news-title">News Title 3</h3>
+                    <a href="#" class="more-about-link">
+                        <u>More about</u>
+                    </a>
+                </div>
+            </div>
+
+
+            <button class="carousel-control right" id="nextBtn">&gt</button>
+
+        </div>
+
+    </div>
+
+    <!-- News Modal -->
+    <div id="newsModal" class="custom-modal">
+        <div class="custom-modal-content2">
+            <span class="custom-modal-close">&times;</span>
+
+            <div class="news-container">
+                <!-- Left Side: Text -->
+                <div class="news-text">
+                    <h1 class="news-title">Exciting News Title</h1>
+                    <p class="news-date">Published on: January 26, 2025</p>
+                    <p class="news-body">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod malesuada dolor nec bibendum.
+                        Cras vehicula mi eget lectus efficitur, eget accumsan ante condimentum.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod malesuada dolor nec bibendum.
+                        Cras vehicula mi eget lectus efficitur, eget accumsan ante condimentum.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod malesuada dolor nec bibendum.
+                        Cras vehicula mi eget lectus efficitur, eget accumsan ante condimentum.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod malesuada dolor nec bibendum.
+                        Cras vehicula mi eget lectus efficitur, eget accumsan ante condimentum.
+                    </p>
+                </div>
+
+                <!-- Right Side: Image -->
+                <div class="news-image-container">
+                    <img src="~/images/about.jpg" alt="News Image" class="news-image" />
+                </div>
+            </div>
+
+            <!--News Comment section-->
+            <div class="news-comment-container">
+                <h1 class="pull-left">Discussion</h1>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="news-comment-form">
+                            <div class="row">
+                                <div class="col-sm-3 col-lg-2 hidden-xs">
+                                    <img class="submit-comment-media" src="~/images/defaultpfp.jpg" alt="">
+                                </div>
+
+                                <div class="comment col-xs-12 col-sm-9 col-lg-10">
+                                    <form>
+                                        <textarea class="form-control" id="message" placeholder="Your message" required=""></textarea>
+                                        <button type="submit" class="btn btn-normal pull-right">Submit</button>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                            <h3>Comments</h3>
+                            <div class="news-comment-loader">
+
+                                <div class="media">
+                                    <div class="col-sm-3 col-lg-2 hidden-xs">
+                                        <img class="comment-media-object" src="~/images/defaultpfp.jpg" alt="">
+                                    </div>
+
+                                    <div class="comment col-xs-12 col-sm-9 col-lg-10">
+                                        <h4 class="media-heading">Default name</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="courses" class="courses">
+        <div class="container">
+
+            <div class="col-lg-12 d-flex justify-content-center">
+                <h1>Cursos</h1>
+            </div>
+
+            <div class="row">
+                <!-- Left Side: Dropdown and Table -->
+                <div class="col-lg-4">
+                    <!-- Dropdown -->
+                    <div class="form-group d-flex align-items-center mb-4">
+                        <label for="ciclos" class="dropdown-label me-2">Ciclos:</label>
+                        <select id="cicles" class="form-control dropdown">
+                            <option value="I">I</option>
+                            <option value="II">II</option>
+                            <option value="III">III</option>
+                            <option value="IV">IV</option>
+                            <option value="V">V</option>
+                            <option value="VI">VI</option>
+                            <option value="VII">VII</option>
+                            <option value="VIII">VIII</option>
+                        </select>
+                    </div>
+
+                    <!-- Table -->
+                    <label for="coursesTable" class="table-label">Courses:</label>
+                    <table id="coursesTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Acronym</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>IF4101</td>
+                                <td>Lenguajes para aplicaciones comerciales</td>
+                                <td><u>&gt&gt</u></td>
+                            </tr>
+                            <tr>
+                                <td>IF5000</td>
+                                <td>Redes y comunicaciones de datos</td>
+                                <td><u>&gt&gt</u></td>
+                            </tr>
+                            <tr>
+                                <td>IF5000</td>
+                                <td>Administración de las bases de datos</td>
+                                <td><u>&gt&gt</u></td>
+                            </tr>
+                            <tr>
+                                <td>MA0323</td>
+                                <td>Métodos numéricos</td>
+                                <td><u>&gt&gt</u></td>
+                            </tr>
+                            <tr>
+                                <td>SR-1</td>
+                                <td>Seminario de Realidad Nacional I</td>
+                                <td><u>&gt&gt</u></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Right Side: Blank Square -->
+                <div class="col-lg-8">
+                    <div class="blank-square">
+                        <section class="course-info">
+                            <h4 class="course-acronym" id="courseAcronym">Acronym</h4>
+                            <h2 class="course-title" id="courseName">Placeholder name</h2>
+                            <p class="course-about" id="courseDescription">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.
+                            </p>
+                            <h4>Assigned Teacher</h4>
+                            <p class="assigned-teacher" id="assignedTeacher">Example</p>
+                            <!-- Buttons -->
+                            <div class="button-group mt-4">
+                                <button id="discussionButton">Discussion</button>
+                                <button id="contactProfessor">Contact Professor</button>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Modal -->
+    <div id="courseModal" class="custom-modal">
+
+        <span class="custom-modal-close">&times;</span>
+        <div class="custom-modal-content2">
+            <!-- Course Discussion Section -->
+            <div class="course-comment-container">
+                <h1 class="pull-left">Course Discussion</h1>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="course-comment-form">
+                            
+
+                            <div class="comment col-xs-12 col-sm-9 col-lg-10">
+                                <div class="row">
+
+                                    <div class="col-sm-3 col-lg-2 hidden-xs">
+                                        <img class="submit-comment-media" src="~/images/defaultpfp.jpg" alt="" id="imageUser">
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="row">
+
+                                    <textarea id="textareacomment" class="form-control" placeholder="Your thoughts on this course..."></textarea>
+                                    
+                                </div>
+
+                                <div class="row">
+
+                                    <button id="submitComment" type="button" onclick="postComment()" class="btn btn-normal pull-right">Submit</button>
+
+
+                                </div>
+                                
+                            </div>
+                        </div>
+
+
+                        <h3>Comments</h3>
+                        <div class="course-comment-loader">
+                            <div class="media">
+                                <div class="col-sm-3 col-lg-2 hidden-xs">
+                                    <img class="comment-media-object" src="~/images/defaultpfp.jpg" alt="">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div id="contact" class="form-2">
+        <div class="container">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <h1>Contact us!</h1>
+            </div>
+
+            <div class="row">
+                <!-- Right Side: Form -->
+                <div class="col-lg-6">
+                    <div class="form-area">
+                        <form id="registerForm" data-toggle="validator" data-focus="false">
+                            <select class="form-control without-margin mb-3" name="addressees" id="professorSelect">
+                                <option value="0" selected>Select a teacher</option>
+                            </select>
+
+                            <select class="form-control without-margin mb-3" name="appointmentTypes" id="appointmentType">
+                                <option value="0" selected>Solicitud de hora de consulta</option>
+                                <option value="1">Consulta privada sobre curso</option>
+                            </select>
+
+                            <textarea class="form-control mb-3" rows="6" placeholder="Asunto" id="txtConsult" name="appointmentMessage"></textarea>
+
+                            <div class="form-group">
+                                <button type="button" class="form-control-submit-button" onclick="PostApplicationConsultation()" id="submitAppointmentButton">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div> <!-- end of col -->
+                <!-- Left Side: Text Content -->
+                <div class="col-lg-6">
+                    <div class="text-container">
+                        <p> Communication is key! Here you can directly contact our teachers in oreder to set up appointments or make things clear about the courses they are in charge</p>
+                    </div>
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of form-2 -->
+    <!-- end of contact -->
+    <!-- Registro -->
+    <div id="register" class="form-1">
+        <div class="container">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <h1>Register</h1>
+            </div>
+            <div class="row">
+                <!-- Left Side: Text Content -->
+                <div class="col-lg-6">
+                    <div class="text-container">
+
+                        <p class="white">More than a platform, a community. Join us to access the following features:</p>
+
+                        <ul class="list-unstyled li-space-lg white">
+                            <li class="media">
+                                <i class="fas fa-square"></i>
+                                <div class="media-body">Community interaction</div>
+                            </li>
+                            <li class="media">
+                                <i class="fas fa-square"></i>
+                                <div class="media-body">Get in touch with your professors</div>
+                            </li>
+                            <li class="media">
+                                <i class="fas fa-square"></i>
+                                <div class="media-body">Clear out all of your doubtss</div>
+                            </li>
+                        </ul>
+                        <p class="white">Reminder: your account is subject to validation</p>
+                    </div>
+                </div> <!-- end of col -->
+                <!-- Right Side: Form -->
+                <div class="col-lg-6">
+                    <form id="registerForm" data-toggle="validator" data-focus="false">
+                        <!-- Name -->
+
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="rId" name="rId" required>
+                            <label class="label-control" for="rId">ID</label>
+
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="rName" name="rName" required>
+                            <label class="label-control" for="rName">First name</label>
+
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="rSname" name="rSname" required>
+                            <label class="label-control" for="rSname">Second name</label>
+
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <input type="text" class="form-control-input" id="rMail" name="rMail" required>
+                            <label class="label-control" for="rMail">Mail</label>
+
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group">
+                            <input type="password" class="form-control-input" id="rPassword" name="rPassword" required>
+                            <label class="label-control" for="rPassword">Passowrd</label>
+
+                        </div>
+                        <!-- Interests -->
+                        <p>Likings</p>
+                        <div class="form-group-reg">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="radioDB" name="intereses" value="databases">
+                                <label class="form-check-label" for="radioDB">Databases</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="radioNetwork" name="intereses" value="networks">
+                                <label class="form-check-label" for="radioNetwork">Networks</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="radioCSecurity" name="intereses" value="cybersecurity">
+                                <label class="form-check-label" for="radioCSecurity">Cyber Security</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="radioDevelopment" name="intereses" value="development">
+                                <label class="form-check-label" for="radioDevelopment">Development</label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-group">
+                            <button type="button" class="form-control-submit-button" onclick="PostStudent()">Let's begin!</button>
+                        </div>
+                    </form>
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of form-1 -->
+    <!-- end of call me -->
+    <!-- Footer -->
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="text-container about">
+                        <h4>Few Words About Aria</h4>
+                        <p class="white">We're passionate about delivering the best business growth services for companies just starting out as startups or industry players that have established their market position a long tima ago.</p>
+                    </div> <!-- end of text-container -->
+                </div> <!-- end of col -->
+                <div class="col-md-2">
+                    <div class="text-container">
+                        <h4>Links</h4>
+                        <ul class="list-unstyled li-space-lg white">
+                            <li>
+                                <a class="white" href="#your-link">startupguide.com</a>
+                            </li>
+                            <li>
+                                <a class="white" href="terms-conditions.html">Terms & Conditions</a>
+                            </li>
+                            <li>
+                                <a class="white" href="privacy-policy.html">Privacy Policy</a>
+                            </li>
+                        </ul>
+                    </div> <!-- end of text-container -->
+                </div> <!-- end of col -->
+                <div class="col-md-2">
+                    <div class="text-container">
+                        <h4>Tools</h4>
+                        <ul class="list-unstyled li-space-lg">
+                            <li>
+                                <a class="white" href="#your-link">businessgrowth.com</a>
+                            </li>
+                            <li>
+                                <a class="white" href="#your-link">influencers.com</a>
+                            </li>
+                            <li class="media">
+                                <a class="white" href="#your-link">optimizer.net</a>
+                            </li>
+                        </ul>
+                    </div> <!-- end of text-container -->
+                </div> <!-- end of col -->
+                <div class="col-md-2">
+                    <div class="text-container">
+                        <h4>Partners</h4>
+                        <ul class="list-unstyled li-space-lg">
+                            <li>
+                                <a class="white" href="#your-link">unicorns.com</a>
+                            </li>
+                            <li>
+                                <a class="white" href="#your-link">staffmanager.com</a>
+                            </li>
+                            <li>
+                                <a class="white" href="#your-link">association.gov</a>
+                            </li>
+                        </ul>
+                    </div> <!-- end of text-container -->
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->n
+        </div> <!-- end of container -->
+    </div> <!-- end of footer -->
+    <!-- end of footer -->
+    <!-- Copyright -->
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="p-small">Copyright © 2020 <a href="https://inovatik.com">Template by Inovatik</a></p>
+                </div> <!-- end of col -->
+            </div> <!-- enf of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of copyright -->
+    <!-- end of copyright -->
+    <!-- Scripts -->
+
+    <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="js/po.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+    <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="js/morphext.min.js"></script> <!-- Morphtext rotating text in the header -->
+    <script src="js/isotope.pkgd.min.js"></script> <!-- Isotope for filter -->
+    <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="js/scripts.js"></script> <!-- Custom scripts -->
+    <script src="js/site.js"></script>
 </body>
 </html>
