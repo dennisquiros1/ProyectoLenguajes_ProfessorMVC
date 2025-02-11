@@ -10,6 +10,7 @@ const mailModal = document.getElementById('emailModal');
 const discussionButton = document.getElementById('discussionButton');
 const courseModal = document.getElementById('courseModal');
 
+//I hate github lmao
 function openModal(modal) {
     modal.style.display = 'flex';
     navigationBar.style.display = 'none';
