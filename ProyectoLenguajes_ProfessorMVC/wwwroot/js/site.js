@@ -1,6 +1,6 @@
 ﻿const modals = document.querySelectorAll('.custom-modal');
 const closeButtons = document.querySelectorAll('.custom-modal-close');
-const navigationBar = document.getElementById('navBar');
+const navigationBar = document.getElementById('navBar'); 
 
 $(document).ready(function () {
     GetCoursesByCycle(1);
@@ -111,6 +111,32 @@ function GetProfessorByCourse(id) {
         }
     });
 }
+function AuthenticateProfessor() {
+    var id = $("#lId").val();
+    var password = $("#lPassword").val();
+
+    $.ajax({
+        url: "/Professor/Authenticate",
+        type: "GET",
+        data: { id: id, password: password },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            if (result === 1) {
+                alert("Autenticación exitosa.");
+            } else if (result === -1) {
+                alert("El profesor no existe.");
+            } else {
+                alert("Contraseña incorrecta.");
+            }
+        },
+        error: function () {
+            alert("Error al autenticar.");
+        }
+    });
+}
+
+
 
 function GetCommentsByCourseId(courseId) {
     $.ajax({
@@ -217,10 +243,7 @@ function postComment() {
 }
 
 
-function openModal(modal) {
-    modal.style.display = 'flex';
-    navigationBar.style.display = 'none';
-}
+
 function closeModal(modal) {
     modal.style.display = 'none';
     navigationBar.style.display = 'block';
@@ -267,11 +290,34 @@ function imageToBase64(imgElement, callback) {
     callback(base64String);
 }
 
+
+//Conversors
+function imageToBase64(imgElement, callback) {
+    const img = imgElement; // Elemento <img>
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0);
+
+    // Convertir la imagen a Base64 (formato PNG)
+    const base64String = canvas.toDataURL('image/png');
+
+    callback(base64String);
+}
+
 //Method for pass base64 to <img>
 function base64ToImage(base64String, imgElement) {
     imgElement.src = `data:image/png;base64,${base64String}`;
 }
+const mailNav = document.getElementById('emailNav');
+const mailModal = document.getElementById('emailModal');
 
+mailNav.addEventListener('click', (event) => {
+    event.preventDefault();
+    openModal(mailModal);
+});
 
 /*
 function LoadProfessor() {

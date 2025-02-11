@@ -45,6 +45,33 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
 
 
         [HttpGet]
+        public async Task<int> Authenticate(string id, string password)
+        {
+            int result = 0;
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:7020/api/Professor/");
+                    var response = await client.GetAsync($"Authenticate?id={id}&password={password}");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        result = await response.Content.ReadFromJsonAsync<int>();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Server error: {ex.Message}");
+            }
+
+            return result;
+        }
+
+
+        [HttpGet]
         public Professor GetProfessorPhoto(string id)
         {
             Professor professor = null;
