@@ -1,7 +1,4 @@
-﻿const modals = document.querySelectorAll('.custom-modal');
-const closeButtons = document.querySelectorAll('.custom-modal-close');
-const navigationBar = document.getElementById('navBar'); 
-
+﻿
 $(document).ready(function () {
     GetCoursesByCycle(1);
     //GetNewsById("SV-200");
@@ -242,39 +239,16 @@ function postComment() {
     });
 }
 
-
-
-function closeModal(modal) {
-    modal.style.display = 'none';
-    navigationBar.style.display = 'block';
-}
+//MODALS STUFF
 
 
 
-closeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const modal = button.closest('.custom-modal');
-        closeModal(modal);
-    });
-});
-window.addEventListener('click', (event) => {
-    modals.forEach(modal => {
-        if (event.target === modal) {
-            closeModal(modal);
-        }
-    });
-});
-//Add other Modals
 
 
-// Link Discussion button to Course Discussion modal
-const discussionButton = document.getElementById('discussionButton');
-const courseModal = document.getElementById('courseModal');
-discussionButton.addEventListener('click', () => {
-    openModal(courseModal);
-});
 
-//Conversors
+
+//Converters
+
 function imageToBase64(imgElement, callback) {
     const img = imgElement; // Elemento <img>
     const canvas = document.createElement('canvas');
@@ -311,13 +285,7 @@ function imageToBase64(imgElement, callback) {
 function base64ToImage(base64String, imgElement) {
     imgElement.src = `data:image/png;base64,${base64String}`;
 }
-const mailNav = document.getElementById('emailNav');
-const mailModal = document.getElementById('emailModal');
 
-mailNav.addEventListener('click', (event) => {
-    event.preventDefault();
-    openModal(mailModal);
-});
 
 /*
 function LoadProfessor() {

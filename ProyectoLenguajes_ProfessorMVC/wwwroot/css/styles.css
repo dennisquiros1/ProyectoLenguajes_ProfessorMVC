@@ -1055,7 +1055,6 @@ button {
     }
 
 
-
 /************************/
 /*     Email Modal      */
 /************************/
@@ -1086,6 +1085,20 @@ button {
     flex-direction: column;
     max-height: 80vh;
     overflow: hidden;
+    min-height: 500px;
+    max-height: 500px;
+    box-sizing: border-box; /* Prevents extra space or overflow */
+}
+
+.custom-date-margin {
+    margin-bottom: 20px; /* Add some space below the date picker */
+}
+
+.custom-send-btn {
+    padding: 5px 10px; /* Adjust the button padding to make it smaller */
+    font-size: 12px; /* Adjust font size if needed */
+    width: auto; /* Ensures button doesn't take full width */
+    max-width: 200px; /* Limit max width */
 }
 
 /* Close button */
@@ -1153,6 +1166,26 @@ button {
     margin-top: 1rem;
 }
 
+/* For Appointment Tab */
+#appointments .email-content {
+    padding-top: 20px; /* Add space at the top for appointments section */
+}
+
+#appointments .custom-date-margin {
+    margin-top: 10px; /* Adjust margin for date picker in appointments */
+}
+
+#appointments .custom-send-btn {
+    margin-top: 10px; /* Add top margin for button in appointments section */
+}
+
+/* For Consult Tab */
+#consults .custom-send-btn {
+    margin-top: 20px; /* Adjust margin for the button in the consult section */
+    width: auto; /* Ensures button doesn't take full width */
+    max-width: 200px; /* Limit max width */
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .email-container {
@@ -1169,8 +1202,6 @@ button {
         max-height: 50vh;
     }
 }
-
-
 
 /* The Modal */
 .custom-modal {

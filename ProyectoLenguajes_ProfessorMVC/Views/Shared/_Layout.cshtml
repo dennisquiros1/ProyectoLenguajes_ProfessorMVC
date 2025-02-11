@@ -199,168 +199,145 @@
 
 
 
-
-
-    <!-- Email Modal -->
+    <!-- Bootstrap 5 Modal -->
     <div id="emailModal" class="custom-modal">
         <div class="custom-modal-content2">
             <span class="custom-modal-close">&times;</span>
 
-            <div class="email-container">
-                <!-- Left Side (Email List) -->
-                <div class="email-list">
-                    <table class="email-table">
-                        <tbody>
-                            <tr>
-                                <td class="email-info">
-                                    <h4>Subject Example</h4>
-                                    <p>From: sender@example.com</p>
-                                </td>
-                                <td class="email-action">
-                                    <button class="btn btn-primary"> Open </button>
-                                </td>
-                            </tr>
+            <!-- Tab Buttons -->
+            <ul class="nav nav-tabs" id="emailTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="appointments-tab" data-bs-toggle="tab" data-bs-target="#appointments" type="button" role="tab" aria-controls="appointments" aria-selected="true">Appointments</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="consults-tab" data-bs-toggle="tab" data-bs-target="#consults" type="button" role="tab" aria-controls="consults" aria-selected="false">Consults</button>
+                </li>
+            </ul>
 
-                            <tr>
-                                <td class="email-info">
-                                    <h4>Subject Example</h4>
-                                    <p>From: sender@example.com</p>
-                                </td>
-                                <td class="email-action">
-                                    <button class="btn btn-primary">Open</button>
-                                </td>
-                            </tr>
+            <!-- Tab Content -->
+            <div class="tab-content" id="emailTabContent">
+                <!-- Appointments Tab -->
+                <div class="tab-pane fade show active" id="appointments" role="tabpanel" aria-labelledby="appointments-tab">
+                    <div class="email-container">
+                        <div class="email-list">
+                            <table class="email-table">
+                                <tbody>
+                                    <tr>
+                                        <td class="email-info">
+                                            <h4>Appointment Subject</h4>
+                                            <p>From: sender@example.com</p>
+                                        </td>
+                                        <td class="email-action">
+                                            <button class="btn btn-primary">Open</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="email-content">
+                            <div class="row-profile">
+                                <div class="col-md-2">
+                                    <img src="~/images/defaultpfp.jpg" alt="Profile Picture" class="img-fluid">
+                                </div>
+                                <div class="col-md-3">
+                                    <h3>John Doe</h3>
+                                    <p>Jan 26, 2025</p>
+                                </div>
+                            </div>
+                            <p class="email-body">Appointment details here...</p>
+                            <h3>Reply</h3>
+                            <textarea class="form-control" placeholder="Write your reply..."></textarea>
 
-                            <tr>
-                                <td class="email-info">
-                                    <h4>Subject Example</h4>
-                                    <p>From: sender@example.com</p>
-                                </td>
-                                <td class="email-action">
-                                    <button class="btn btn-primary">Open</button>
-                                </td>
-                            </tr>
+                            <input type="date" id="emailDateInput" class="form-control custom-date-margin">
+                            <button class="btn btn-primary send-btn custom-send-btn">Send</button>
 
-                            <tr>
-                                <td class="email-info">
-                                    <h4>Subject Example</h4>
-                                    <p>From: sender@example.com</p>
-                                </td>
-                                <td class="email-action">
-                                    <button class="btn btn-primary">Open</button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="email-info">
-                                    <h4>Subject Example</h4>
-                                    <p>From: sender@example.com</p>
-                                </td>
-                                <td class="email-action">
-                                    <button class="btn btn-primary">Open</button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="email-info">
-                                    <h4>Subject Example</h4>
-                                    <p>From: sender@example.com</p>
-                                </td>
-                                <td class="email-action">
-                                    <button class="btn btn-primary">Open</button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="email-info">
-                                    <h4>Subject Example</h4>
-                                    <p>From: sender@example.com</p>
-                                </td>
-                                <td class="email-action">
-                                    <button class="btn btn-primary"> Open </button>
-                                </td>
-                            </tr>
-
-
-                            <tr>
-                                <td class="email-info">
-                                    <h4>Subject Example</h4>
-                                    <p>From: sender@example.com</p>
-                                </td>
-                                <td class="email-action">
-                                    <button class="btn btn-primary"> Open </button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="email-info">
-                                    <h4>Subject Example</h4>
-                                    <p>From: sender@example.com</p>
-                                </td>
-                                <td class="email-action">
-                                    <button class="btn btn-primary"> Open </button>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Right Side (Email Content) -->
-                <div class="email-content">
-                    <!-- Profile Row (Name & Date) -->
-                    <div class="row-profile">
-                        <div class="col-md-2">
-                            <img src="~/images/defaultpfp.jpg" alt="Profile Picture" class="img-fluid">
+                <!-- Consults Tab -->
+                <div class="tab-pane fade" id="consults" role="tabpanel" aria-labelledby="consults-tab">
+                    <div class="email-container">
+                        <div class="email-list">
+                            <table class="email-table">
+                                <tbody>
+                                    <tr>
+                                        <td class="email-info">
+                                            <h4>Consult Subject</h4>
+                                            <p>From: sender@example.com</p>
+                                        </td>
+                                        <td class="email-action">
+                                            <button class="btn btn-primary">Open</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="email-info">
+                                            <h4>Consult Subject</h4>
+                                            <p>From: sender@example.com</p>
+                                        </td>
+                                        <td class="email-action">
+                                            <button class="btn btn-primary">Open</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="email-info">
+                                            <h4>Consult Subject</h4>
+                                            <p>From: sender@example.com</p>
+                                        </td>
+                                        <td class="email-action">
+                                            <button class="btn btn-primary">Open</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="email-info">
+                                            <h4>Consult Subject</h4>
+                                            <p>From: sender@example.com</p>
+                                        </td>
+                                        <td class="email-action">
+                                            <button class="btn btn-primary">Open</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="email-info">
+                                            <h4>Consult Subject</h4>
+                                            <p>From: sender@example.com</p>
+                                        </td>
+                                        <td class="email-action">
+                                            <button class="btn btn-primary">Open</button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-md-3">
-                            <h3>John Doe</h3>
-                            <p>Jan 26, 2025</p>
+                        <div class="email-content">
+                            <div class="row-profile">
+                                <div class="col-md-2">
+                                    <img src="~/images/defaultpfp.jpg" alt="Profile Picture" class="img-fluid">
+                                </div>
+                                <div class="col-md-3">
+                                    <h3>John Doe</h3>
+                                    <p>Jan 27, 2025</p>
+                                </div>
+                            </div>
+                            <p class="email-body">Consult details here...</p>
+                            <h3>Reply</h3>
+                            <textarea class="form-control" placeholder="Write your reply..."></textarea>
+                            <button class="btn btn-primary send-btn custom-send-btn">Send</button>
+
                         </div>
-                        <div class="col-md-4"></div>
                     </div>
-
-                    <!-- Email Body -->
-                    <p class="email-body">
-
-                        HQIRUWEPROIQE[WEQR]
-
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-                        HQIRUWEPROIQE[WEQR
-
-
-
-
-                    </p>
-
-                    <!-- Reply Section -->
-                    <h3>Reply</h3>
-                    <textarea class="form-control" placeholder="Write your reply..."></textarea>
-                    <button class="btn btn-primary send-btn">Send</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Ensure Bootstrap JS is loaded -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 
 
@@ -894,5 +871,6 @@
     <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="js/scripts.js"></script> <!-- Custom scripts -->
     <script src="js/site.js"></script>
+    <script src="js/modals.js"></script>
 </body>
 </html>
