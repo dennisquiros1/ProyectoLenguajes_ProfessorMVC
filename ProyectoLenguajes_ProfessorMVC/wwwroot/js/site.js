@@ -54,6 +54,9 @@ function GetCoursesByCycle(cycle) {
     });
 }
 
+
+
+
 function GetCourseByAcronym(acronym) {
     $.ajax({
         url: "/Course/GetByAcronym?acronym=" + acronym,  
@@ -121,6 +124,7 @@ function AuthenticateProfessor() {
         success: function (result) {
             if (result === 1) {
                 alert("Autenticación exitosa.");
+                GetProfessorData(id);
             } else if (result === -1) {
                 alert("El profesor no existe.");
             } else {
@@ -129,6 +133,38 @@ function AuthenticateProfessor() {
         },
         error: function () {
             alert("Error al autenticar.");
+        }
+    });
+}
+
+function GetProfessorData(id) {
+    $.ajax({
+        url: "/Professor/GetById",
+        type: "GET",
+        data: { id: id },  // Asegurar que se envía el parámetro ID
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (professor) {
+            if (professor) {
+                $("#professorName").text(professor.name + " " + professor.lastName);
+                $("#professorID").text(professor.id);
+
+                $("#pName").val(professor.name);
+                $("#pSname").val(professor.lastName);
+                $("#pMail").val(professor.email);
+
+                if (professor.profilePicture) {
+                    $("#profileModal img").attr("src", professor.profilePicture);
+                }
+
+                $("#profileModal").show();
+                alert("Carga de datos salio bien.");
+            } else {
+                alert("No se encontraron datos del profesor.");
+            }
+        },
+        error: function () {
+            alert("Error al obtener los datos del profesor.");
         }
     });
 }
@@ -287,6 +323,34 @@ function base64ToImage(base64String, imgElement) {
 }
 
 
+
+function UpdateProfessor() {
+    var id = $("#professorID").text().trim(); // Asegurar que el ID se obtiene bien
+
+    var updatedProfessor = {
+        Id: id,
+        Name: $("#pName").val(),      
+        LastName: $("#pSname").val(),
+        Email: $("#pMail").val(),
+        Password: $("#pPass").val()
+    };
+
+    $.ajax({
+        url: "/Professor/UpdateProfessor?id=" + encodeURIComponent(id), // ID en la URL
+        type: "PUT",
+        data: JSON.stringify(updatedProfessor), // Enviar solo el objeto como JSON
+        contentType: "application/json", // IMPORTANTE: Indicar que es JSON
+        processData: false, // IMPORTANTE: Evitar que jQuery procese los datos
+        dataType: "json",
+        success: function (response) {
+            GetProfessorData(id);
+        },
+        error: function (error) {
+            alert("Error al editar profesor");
+
+        }
+    });
+}
 /*
 function LoadProfessor() {
     $.ajax({

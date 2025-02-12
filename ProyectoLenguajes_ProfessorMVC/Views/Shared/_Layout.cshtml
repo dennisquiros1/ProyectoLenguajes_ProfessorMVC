@@ -103,8 +103,8 @@
                 </div>
                 <div class="col-md-3">
                     <!-- Name and Role -->
-                    <h3>Name</h3>
-                    <p>#ID</p>
+                    <h3><span id="professorName">Nombre</span></h3>
+                    <p><span id="professorID">#ID</span></p>
                 </div>
                 <div class="col-md-4">
                     <!-- Empty Column for spacing -->
@@ -157,43 +157,22 @@
                             <p for="pPass">Password:</p>
                         </div>
                         <div class="col-md-6">
-                            <input type="password" id="pMail" name="pPass" class="form-control" required>
+                            <input type="password" id="pPass" name="pPass" class="form-control" required>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Third Row (Likings + Buttons) -->
             <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <p>Likings</p>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="radioDB" name="intereses" value="databases">
-                            <label class="form-check-label" for="radioDB">Databases</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="radioNetwork" name="intereses" value="networks">
-                            <label class="form-check-label" for="radioNetwork">Networks</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="radioCSecurity" name="intereses" value="cybersecurity">
-                            <label class="form-check-label" for="radioCSecurity">Cyber Security</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" id="radioDevelopment" name="intereses" value="development">
-                            <label class="form-check-label" for="radioDevelopment">Development</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 text-right">
-                </div>
                 <div class="col-md-6 text-right">
                     <!-- Buttons aligned to the right of the Likings section -->
-                    <button class="btn">Ok!</button>
-                    <button class="btn">Delete</button>
+                    <button onclick="UpdateProfessor()" class="btn">Ok!</button>
+
+
                 </div>
             </div>
+        </div>
+
         </div>
     </div>
 
@@ -377,7 +356,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="button" class="form-control-submit-button" onclick="AuthenticateStudent()">Let's start!</button>
+                                    <button type="button" class="form-control-submit-button" onclick="AuthenticateProfessor()">Let's start!</button>
                                 </div>
                                 <a class="nav-link page-scroll" href="#register"> <p>No accrount?<u> Sign in </u> </p></a>
                             </form>

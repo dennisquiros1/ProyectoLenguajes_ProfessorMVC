@@ -108,6 +108,43 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
 
         }
 
+        [HttpPut]
+        public IActionResult UpdateProfessor(string id, [FromBody] Professor updatedProfessor)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:7020/api/Professor/");
+                    var responseTask = client.PutAsJsonAsync($"EditProfessor?id={id}", updatedProfessor);
+                    responseTask.Wait();
+
+                    var result = responseTask.Result;
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var readTask = result.Content.ReadAsStringAsync();
+                        readTask.Wait();
+                        return Ok(new { message = readTask.Result });  // ⬅️ DEVOLVER UN JSON VÁLIDO
+                    }
+                    else
+                    {
+                        var readTask = result.Content.ReadAsStringAsync();
+                        readTask.Wait();
+                        return BadRequest(new { error = readTask.Result }); // ⬅️ DEVOLVER ERROR COMO JSON
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message }); // ⬅️ DEVOLVER ERROR COMO JSON
+            }
+        }
+
+
+
+
+
 
     }
 }
