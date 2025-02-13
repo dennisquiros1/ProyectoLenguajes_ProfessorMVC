@@ -158,7 +158,7 @@ function GetProfessorData(id) {
                 }
 
                 $("#profileModal").show();
-                alert("Carga de datos salio bien.");
+
             } else {
                 alert("No se encontraron datos del profesor.");
             }

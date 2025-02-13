@@ -72,14 +72,6 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#contact">Contact</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#register">Register</a>
-                </li>
-
-                <li class="nav-item">
                     <a class="nav-link" href="#" id="profileNav">Profile</a>
                 </li>
 
@@ -358,7 +350,6 @@
                                 <div class="form-group">
                                     <button type="button" class="form-control-submit-button" onclick="AuthenticateProfessor()">Let's start!</button>
                                 </div>
-                                <a class="nav-link page-scroll" href="#register"> <p>No accrount?<u> Sign in </u> </p></a>
                             </form>
                         </div>
                     </div>
@@ -622,148 +613,6 @@
         </div>
     </div>
 
-
-
-
-
-
-    <div id="contact" class="form-2">
-        <div class="container">
-            <div class="col-lg-12 d-flex justify-content-center">
-                <h1>Contact us!</h1>
-            </div>
-
-            <div class="row">
-                <!-- Right Side: Form -->
-                <div class="col-lg-6">
-                    <div class="form-area">
-                        <form id="registerForm" data-toggle="validator" data-focus="false">
-                            <select class="form-control without-margin mb-3" name="addressees" id="professorSelect">
-                                <option value="0" selected>Select a teacher</option>
-                            </select>
-
-                            <select class="form-control without-margin mb-3" name="appointmentTypes" id="appointmentType">
-                                <option value="0" selected>Solicitud de hora de consulta</option>
-                                <option value="1">Consulta privada sobre curso</option>
-                            </select>
-
-                            <textarea class="form-control mb-3" rows="6" placeholder="Asunto" id="txtConsult" name="appointmentMessage"></textarea>
-
-                            <div class="form-group">
-                                <button type="button" class="form-control-submit-button" onclick="PostApplicationConsultation()" id="submitAppointmentButton">Enviar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div> <!-- end of col -->
-                <!-- Left Side: Text Content -->
-                <div class="col-lg-6">
-                    <div class="text-container">
-                        <p> Communication is key! Here you can directly contact our teachers in oreder to set up appointments or make things clear about the courses they are in charge</p>
-                    </div>
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of form-2 -->
-    <!-- end of contact -->
-    <!-- Registro -->
-    <div id="register" class="form-1">
-        <div class="container">
-            <div class="col-lg-12 d-flex justify-content-center">
-                <h1>Register</h1>
-            </div>
-            <div class="row">
-                <!-- Left Side: Text Content -->
-                <div class="col-lg-6">
-                    <div class="text-container">
-
-                        <p class="white">More than a platform, a community. Join us to access the following features:</p>
-
-                        <ul class="list-unstyled li-space-lg white">
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">Community interaction</div>
-                            </li>
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">Get in touch with your professors</div>
-                            </li>
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">Clear out all of your doubtss</div>
-                            </li>
-                        </ul>
-                        <p class="white">Reminder: your account is subject to validation</p>
-                    </div>
-                </div> <!-- end of col -->
-                <!-- Right Side: Form -->
-                <div class="col-lg-6">
-                    <form id="registerForm" data-toggle="validator" data-focus="false">
-                        <!-- Name -->
-
-                        <div class="form-group">
-                            <input type="text" class="form-control-input" id="rId" name="rId" required>
-                            <label class="label-control" for="rId">ID</label>
-
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control-input" id="rName" name="rName" required>
-                            <label class="label-control" for="rName">First name</label>
-
-                        </div>
-
-                        <!-- Last Name -->
-                        <div class="form-group">
-                            <input type="text" class="form-control-input" id="rSname" name="rSname" required>
-                            <label class="label-control" for="rSname">Second name</label>
-
-                        </div>
-
-                        <!-- Email -->
-                        <div class="form-group">
-                            <input type="text" class="form-control-input" id="rMail" name="rMail" required>
-                            <label class="label-control" for="rMail">Mail</label>
-
-                        </div>
-
-                        <!-- Password -->
-                        <div class="form-group">
-                            <input type="password" class="form-control-input" id="rPassword" name="rPassword" required>
-                            <label class="label-control" for="rPassword">Passowrd</label>
-
-                        </div>
-                        <!-- Interests -->
-                        <p>Likings</p>
-                        <div class="form-group-reg">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="radioDB" name="intereses" value="databases">
-                                <label class="form-check-label" for="radioDB">Databases</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="radioNetwork" name="intereses" value="networks">
-                                <label class="form-check-label" for="radioNetwork">Networks</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="radioCSecurity" name="intereses" value="cybersecurity">
-                                <label class="form-check-label" for="radioCSecurity">Cyber Security</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="radioDevelopment" name="intereses" value="development">
-                                <label class="form-check-label" for="radioDevelopment">Development</label>
-                            </div>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="form-group">
-                            <button type="button" class="form-control-submit-button" onclick="PostStudent()">Let's begin!</button>
-                        </div>
-                    </form>
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of form-1 -->
-    <!-- end of call me -->
-    <!-- Footer -->
 
     <div class="footer">
         <div class="container">
