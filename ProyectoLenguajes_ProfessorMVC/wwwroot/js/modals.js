@@ -41,13 +41,34 @@ profileNav.addEventListener('click', (event) => {
     openModal(profileModal);
 });
 
-const moreAboutLinks = document.querySelectorAll(".more-about-link");
-moreAboutLinks.forEach(link => {
-    link.addEventListener('click', (event) => {
+
+    const link0 = document.getElementById("newsLink0");
+
+    const link1 = document.getElementById("newsLink1");
+
+    const link2 = document.getElementById("newsLink2");
+
+    link0.addEventListener('click', (event) => {
         event.preventDefault();
         openModal(newsModal);
+
     });
-});
+
+    link1.addEventListener('click', (event) => {
+        event.preventDefault();
+        openModal(newsModal);
+
+    });
+
+    link2.addEventListener('click', (event) => {
+        event.preventDefault();
+        openModal(newsModal);
+
+    });
+
+
+
+   
 
 mailNav.addEventListener('click', (event) => {
     event.preventDefault();

@@ -1425,6 +1425,17 @@ label {
     position: relative; /* Ensure the buttons are positioned relative to this container */
 }
 
+.newsCar {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    position: relative; /* Ensure the buttons are positioned relative to this container */
+}
+
+
 
 
 
@@ -1481,9 +1492,7 @@ label {
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 50%; /* Vertical center */
     z-index: 10;
-    transform: translateY(-50%); /* Center vertically within container */
 }
 
 /* Positioning buttons at the left and right */
