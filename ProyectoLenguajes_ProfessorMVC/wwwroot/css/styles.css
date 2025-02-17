@@ -1458,6 +1458,14 @@ label {
     object-fit: cover;
 }
 
+
+.news-image-preview {
+    width: 100%;
+    height: 200px;
+    max-height: 200px;
+    object-fit: cover;
+}
+
 .news-content {
     padding: 1.5rem;
     text-align: center;
@@ -1492,7 +1500,9 @@ label {
     justify-content: center;
     align-items: center;
     position: absolute;
+    top: 50%; /* Vertical center */
     z-index: 10;
+    transform: translateY(-50%); /* Center vertically within container */
 }
 
 /* Positioning buttons at the left and right */
@@ -1552,6 +1562,14 @@ label {
             .news-item .news-description a:hover {
                 text-decoration: underline;
             }
+
+
+.news-comment-loader .media .comment h5.media-heading {
+    font-size: 0.8rem;
+    color: #777;
+    margin-top: -5px;
+}
+
 
 
 
@@ -1624,15 +1642,18 @@ label {
 
 .courses {
     background-color: white;
-    padding-bottom: 2.15rem;
-    padding-top: 2.5rem;
+    padding-bottom: 4.15rem;
+    padding-top: 1rem;
     border-radius: 8px;
 }
 
 
     .courses h1 {
         color: black;
+        margin-bottom: 4.15rem;
     }
+
+
 /* Dropdown Styling */
 .dropdown-label {
     font-size: 1.1rem;
@@ -2044,93 +2065,50 @@ table th,
 /* Course Discussion */
 /**********************/
 
-
 .course-comment-container {
     padding: 30px 0;
     background-color: #FFFFFF;
+    position: relative;
+    max-width: 100%;
 }
 
-    .course-comment-container comment-media-object {
-        height: 100px;
-        width: 100px;
-        display: block;
-        object-fit: cover;
-        margin-left: 20px;
-    }
-
-.course-comment-form .submit-comment-media {
-    height: 100px;
-    width: 100px;
-    display: block;
-    object-fit: cover;
-    margin-left: 20px;
+.course-comment-form form textarea {
+    height: 80px; /* Ajuste menor para mejor visualización */
+    width: 100%; /* Cambio necesario para evitar desbordamientos */
+    resize: none; /* Evita el redimensionamiento */
 }
 
-
-.course-comment-container .media {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+.course-comment-container .submit-comment-media{
+    height:100px;
+    width:100px;
 }
 
-
-
-
-.course-comment-container.grey {
-    background-color: #F0F0F0;
-    padding: 50px 0;
-    height: 100%;
+.course-comment-form form .btn {
+    margin-top: 10px;
+    background-color: #f1962e;
+    border: 0.125rem solid #f1962e;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    transition: background-color 0.3s;
 }
 
-.course-comment-container h1 {
-    font-weight: 800;
-    font-size: 25px;
-    line-height: 45px;
-    margin: 20px 0;
-}
-
-.course-comment-container h3 {
-    font-weight: 800;
-    font-size: 20px;
-    color: black;
-    margin: 10px 0 15px;
-    padding: 0;
-}
-
-.course-comment-form form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 30px;
-}
-
-.course-comment-form {
-    width: 100%;
-}
-
-    .course-comment-form form fieldset {
-        clear: both;
-    }
-
-    .course-comment-form form textarea {
-        height: 100px;
-        width: 230%;
-    }
-
-    .course-comment-form form .btn {
-        margin-top: 7px;
+    .course-comment-form form .btn:hover {
+        background-color: #fff;
+        border: 0.125rem solid #f1962e;
+        color: #f1962e;
     }
 
 .course-comment-loader {
     background-color: #FFFFFF;
-    width: 150%;
+    width: 100%;
 }
 
     .course-comment-loader .media {
         border-top: 2px dashed #DDDDDD;
         padding: 20px 0;
-        margin: 0;
         display: flex;
+        flex-wrap: wrap;
     }
 
         .course-comment-loader .media .col-sm-3,
@@ -2187,8 +2165,6 @@ table th,
             font-size: 15px;
             margin-right: 10px;
         }
-
-
 
 
 /**********************/

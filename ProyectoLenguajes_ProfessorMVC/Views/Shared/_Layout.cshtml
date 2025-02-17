@@ -62,25 +62,26 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#header">Intro<span class="sr-only">(current)</span></a>
+                    <a class="nav-link page-scroll" href="#header">Inicio<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#newsDisplayer">News</a>
+                    <a class="nav-link page-scroll" href="#newsDisplayer">Noticias</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link page-scroll" href="#courses">Courses</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="profileNav">Profile</a>
+                    <a class="nav-link page-scroll" href="#courses">Cursos</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#" id="emailNav">Mail</a>
+                    <a class="nav-link" href="#" id="profileNav">Perfil</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="emailNav">Correo</a>
                 </li>
             </ul>
         </div>
     </nav> <!-- end of navbar -->
+
     <!-- Profile Modal -->
     <div id="profileModal" class="custom-modal">
         <div class="custom-modal-content2">
@@ -109,7 +110,7 @@
                     <!-- Form for Additional Profile Information -->
                     <div class="row">
                         <div class="col-md-6">
-                            <p for="pName">Name:</p>
+                            <p for="pName">Nombre:</p>
                         </div>
                         <div class="col-md-6">
                             <input type="text" id="pName" name="pName" class="form-control" value="Example">
@@ -118,7 +119,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <p for="pSname">Second Name:</p>
+                            <p for="pSname">Apellido:</p>
                         </div>
                         <div class="col-md-6">
                             <input type="text" id="pSname" name="pSname" class="form-control" value="Example">
@@ -127,7 +128,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <p for="pMail">Email:</p>
+                            <p for="pMail">Correo:</p>
                         </div>
                         <div class="col-md-6">
                             <input type="email" id="pMail" name="pMail" class="form-control" value="example@gmail.com">
@@ -136,17 +137,26 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <p for="pPic">Profile picture</p>
+                            <label for="pExpertise">Descripción:</label>
                         </div>
                         <div class="col-md-6">
-                            <label for="pPic" class="file-label">Choose File</label>
+                            <textarea id="pExpertise" name="pExpertise" class="form-control" rows="4">...</textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p for="pPic">Foto de perfil</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="pPic" class="file-label">Elegir archivo</label>
                             <input type="file" id="pPic" name="pPic" class="form-control">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6">
-                            <p for="pPass">Password:</p>
+                            <p for="pPass">Contraseña:</p>
                         </div>
                         <div class="col-md-6">
                             <input type="password" id="pPass" name="pPass" class="form-control" required>
@@ -158,8 +168,9 @@
             <div class="row align-items-center">
                 <div class="col-md-6 text-right">
                     <!-- Buttons aligned to the right of the Likings section -->
-                    <button onclick="UpdateProfessor()" class="btn">Ok!</button>
-
+                    <button onclick="UpdateProfessor()" class="btn">Editar</button>
+                    <button onclick="" class="btn">Cancelar</button>
+                    <button onclick="" class="btn">Eliminar perfil</button>
 
                 </div>
             </div>
@@ -178,10 +189,10 @@
             <!-- Tab Buttons -->
             <ul class="nav nav-tabs" id="emailTabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="appointments-tab" data-bs-toggle="tab" data-bs-target="#appointments" type="button" role="tab" aria-controls="appointments" aria-selected="true" onclick="LoadAppConsultations()">Appointments</button>
+                    <button class="nav-link active" id="appointments-tab" data-bs-toggle="tab" data-bs-target="#appointments" type="button" role="tab" aria-controls="appointments" aria-selected="true" onclick="LoadAppConsultations()">Citas</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="consults-tab" data-bs-toggle="tab" data-bs-target="#consults" type="button" role="tab" aria-controls="consults" aria-selected="false" onclick="GetPrivateConsultations()">Consults</button>
+                    <button class="nav-link" id="consults-tab" data-bs-toggle="tab" data-bs-target="#consults" type="button" role="tab" aria-controls="consults" aria-selected="false" onclick="GetPrivateConsultations()">Consultas</button>
                 </li>
             </ul>
 
@@ -206,7 +217,7 @@
                             </table>
                         </div>
                         <div class="email-content">
-                            <p class="previous_text" id="previous_text">Press the open button to see the details of the consult!!</p>
+                            <p class="previous_text" id="previous_text">Seleccione un mensaje para verlo</p>
                             <div class="row-profile">
                                 <div class="col-md-2">
                                     <img src="~/images/defaultpfp.jpg" alt="Profile Picture" class="img-fluid" id="student_app_photo" hidden="true">
@@ -217,14 +228,14 @@
                                 </div>
                             </div>
                             <p class="email-body" id="student_app_text" hidden>Appointment details here...</p>
-                            <h3 id="student_app_reply" hidden>Reply</h3>
+                            <h3 id="student_app_reply" hidden>Responder</h3>
                             <textarea class="form-control" placeholder="Write your reply..." id="student_app_answer" hidden></textarea>
                             <h1 id="student_app_idconsult" hidden></h1>
                             <h1 id="student_app_student" hidden></h1>
                             <h1 id="student_app_professor" hidden></h1>
 
-                            <button class="btn btn-primary send-btn custom-send-btn" id="sender_app" onclick="PutAppConsultation()" hidden>Send</button>
-
+                            <button class="btn btn-primary send-btn custom-send-btn" id="sender_app" onclick="PutAppConsultation()" hidden>Enviar</button>
+                            
                         </div>
                     </div>
                 </div>
@@ -245,50 +256,11 @@
                                         </td>
                                     </tr>
 
-                                    <tr>
-                                        <td class="email-info">
-                                            <h4>Consult Subject</h4>
-                                            <p>From: sender@example.com</p>
-                                        </td>
-                                        <td class="email-action">
-                                            <button class="btn btn-primary">Open</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="email-info">
-                                            <h4>Consult Subject</h4>
-                                            <p>From: sender@example.com</p>
-                                        </td>
-                                        <td class="email-action">
-                                            <button class="btn btn-primary">Open</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="email-info">
-                                            <h4>Consult Subject</h4>
-                                            <p>From: sender@example.com</p>
-                                        </td>
-                                        <td class="email-action">
-                                            <button class="btn btn-primary">Open</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="email-info">
-                                            <h4>Consult Subject</h4>
-                                            <p>From: sender@example.com</p>
-                                        </td>
-                                        <td class="email-action">
-                                            <button class="btn btn-primary">Open</button>
-                                        </td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>
                         <div class="email-content">
-                            <p class="previous_text" id="previous_priv_text">Press the open button to see the details of the consult!!</p>
+                            <p class="previous_text" id="previous_priv_text">Seleccione un mensaje para verlo</p>
                             <div class="row-profile">
                                 <div class="col-md-2">
                                     <img src="~/images/defaultpfp.jpg" alt="Profile Picture" class="img-fluid" id="student_private_photo">
@@ -304,7 +276,7 @@
                             <h1 id="student_private_idconsult" hidden></h1>
                             <h1 id="student_private_student" hidden></h1>
                             <h1 id="student_private_professor" hidden></h1>
-                            <button class="btn btn-primary send-btn custom-send-btn" id="sender_private" onclick="PutPrivateConsultation()">Send</button>
+                            <button class="btn btn-primary send-btn custom-send-btn" id="sender_private" onclick="PutPrivateConsultation()">Enviar</button>
 
                         </div>
                     </div>
@@ -313,9 +285,7 @@
         </div>
     </div>
 
-    <!-- Ensure Bootstrap JS is loaded -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    
 
 
 
@@ -330,9 +300,9 @@
 
                     <div class="col-lg-6">
                         <div class="text-container">
-                            <h1>Welcome!</h1>
+                            <h1>¡Bienvenido!</h1>
                             <p>
-                                Info-E is an independent platform meant to connect students from the Business Computer major located in UCR Paraíso´s branch, feel free to check out what we have to offer!
+                                Info-E es una plataforma independiente diseñada para conectar a los estudiantes de la carrera de Informática Empresarial en la sede de la UCR en Paraíso. ¡No dudes en echar un vistazo a lo que ofrecemos!
                             </p>
                         </div>
                     </div>
@@ -340,22 +310,22 @@
                     <!-- Left Side: Form -->
                     <div class="col-lg-6">
                         <div class="form-container">
-                            <h2> Login</h2>
+                            <h2>Ingreso</h2>
                             <form id="loginForm" data-toggle="validator" data-focus="false">
                                 <div class="form-group">
                                     <input type="text" class="form-control-input" id="lId" name="lId" required>
-                                    <label class="label-control" for="lId">ID</label>
+                                    <label class="label-control" for="lId">Carné de trabajo</label>
 
                                 </div>
 
                                 <div class="form-group">
                                     <input type="password" class="form-control-input" id="lPassword" name="lPassword" required>
-                                    <label class="label-control" for="lPassword">Password</label>
+                                    <label class="label-control" for="lPassword">Contraseña</label>
 
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="button" class="form-control-submit-button" onclick="AuthenticateProfessor()">Let's start!</button>
+                                    <button type="button" class="form-control-submit-button" onclick="AuthenticateProfessor()">Ingresar</button>
                                 </div>
                             </form>
                         </div>
@@ -376,46 +346,47 @@
        
         <div class="newsCar">
 
-            <button class="carousel-control left" id="prevBtn"> &lt </button>
-
+       
 
         <div id="newsContainer" class="newsContainer">
+                <button class="carousel-control left" id="prevBtn"> &lt </button>
+
 
                 <div class="news-item">
-                    <img src="" alt="News Image" class="news-image" id="newImage0" />
+                    <img src="" alt="News Image" class="news-image-preview" id="newImage0" />
                     <div class="news-content">
                         <h3 class="news-title" id="newPreviewTittle0"></h3>
                         <a href="#" class="more-about-link0" id="newsLink0">
-                            <u>More about</u>
+                            <u>Saber más</u>
                         </a>
                     </div>
                 </div>
 
                 <div class="news-item">
-                    <img src="" alt="News Image" class="news-image" id="newImage1" />
+                    <img src="" alt="News Image" class="news-image-preview" id="newImage1" />
                     <div class="news-content">
                         <h3 class="news-title" id="newPreviewTittle1"></h3>
                         <a href="#" class="more-about-link1" id="newsLink1">
-                            <u>More about</u>
+                            <u>Saber más</u>
                         </a>
                     </div>
                 </div>
 
                 <div class="news-item">
-                    <img src="" alt="News Image" class="news-image" id="newImage2" />
+                    <img src="" alt="News Image" class="news-image-preview" id="newImage2" />
                     <div class="news-content">
                         <h3 class="news-title" id="newPreviewTittle2"></h3>
                         <a href="#" class="more-about-link2" id="newsLink2">
-                            <u>More about</u>
+                            <u>Saber más</u>
                         </a>
                     </div>
                 </div>
+                <button class="carousel-control right" id="nextBtn">&gt</button>
 
 
         </div>
 
-            <button class="carousel-control right" id="nextBtn">&gt</button>
-
+            
         </div>
 
 
@@ -451,7 +422,7 @@
 
             <!--News Comment section-->
             <div class="news-comment-container">
-                <h1 class="pull-left">Discussion</h1>
+                <h1 class="pull-left">Comentarios</h1>
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="news-comment-form">
@@ -462,14 +433,14 @@
 
                                 <div class="comment col-xs-12 col-sm-9 col-lg-10">
                                     <form>
-                                        <textarea class="form-control" id="message" placeholder="Your message" required=""></textarea>
-                                        <button type="submit" class="btn btn-normal pull-right">Submit</button>
+                                        <textarea class="form-control" id="message" placeholder="Escribe un mensaje" required=""></textarea>
+                                        <button type="submit" class="btn btn-normal pull-right">Enviar</button>
 
                                     </form>
                                 </div>
                             </div>
 
-                            <h3>Comments</h3>
+                            <h3>Comentarios</h3>
                             <div class="news-comment-loader">
 
                                 <div class="media">
@@ -479,6 +450,8 @@
 
                                     <div class="comment col-xs-12 col-sm-9 col-lg-10">
                                         <h4 class="media-heading">Default name</h4>
+                                        <h5 class="media-heading">02/17/25</h5>
+
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                     </div>
                                 </div>
@@ -520,41 +493,16 @@
                     </div>
 
                     <!-- Table -->
-                    <label for="coursesTable" class="table-label">Courses:</label>
+                    <label for="coursesTable" class="table-label">Listado de Cursos:</label>
                     <table id="coursesTable" class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Acronym</th>
-                                <th>Name</th>
-                                <th>Action</th>
+                                <th>Siglas</th>
+                                <th>Nombre</th>
+                                <th>Acción</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>IF4101</td>
-                                <td>Lenguajes para aplicaciones comerciales</td>
-                                <td><u>&gt&gt</u></td>
-                            </tr>
-                            <tr>
-                                <td>IF5000</td>
-                                <td>Redes y comunicaciones de datos</td>
-                                <td><u>&gt&gt</u></td>
-                            </tr>
-                            <tr>
-                                <td>IF5000</td>
-                                <td>Administración de las bases de datos</td>
-                                <td><u>&gt&gt</u></td>
-                            </tr>
-                            <tr>
-                                <td>MA0323</td>
-                                <td>Métodos numéricos</td>
-                                <td><u>&gt&gt</u></td>
-                            </tr>
-                            <tr>
-                                <td>SR-1</td>
-                                <td>Seminario de Realidad Nacional I</td>
-                                <td><u>&gt&gt</u></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -563,17 +511,16 @@
                 <div class="col-lg-8">
                     <div class="blank-square">
                         <section class="course-info">
-                            <h4 class="course-acronym" id="courseAcronym">Acronym</h4>
-                            <h2 class="course-title" id="courseName">Placeholder name</h2>
+                            <h4 class="course-acronym" id="courseAcronym">Siglas</h4>
+                            <h2 class="course-title" id="courseName">Nombre</h2>
                             <p class="course-about" id="courseDescription">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.
                             </p>
-                            <h4>Assigned Teacher</h4>
-                            <p class="assigned-teacher" id="assignedTeacher">Example</p>
+                            <h4>Profesor asignado</h4>
+                            <p class="assigned-teacher" id="assignedTeacher">Ejemplo</p>
                             <!-- Buttons -->
                             <div class="button-group mt-4">
-                                <button id="discussionButton">Discussion</button>
-                                <button id="contactProfessor">Contact Professor</button>
+                                <button id="discussionButton">Discusión</button>
                             </div>
                         </section>
                     </div>
@@ -584,33 +531,29 @@
 
     <!-- Course Modal -->
     <div id="courseModal" class="custom-modal">
-
-        <span class="custom-modal-close">&times;</span>
         <div class="custom-modal-content2">
+            <span class="custom-modal-close" onclick="closeModal()">&times;</span>
+
             <!-- Course Discussion Section -->
             <div class="course-comment-container">
-                <h1 class="pull-left">Course Discussion</h1>
+                <h1>Discusión del curso</h1>
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                         <div class="course-comment-form">
                             <div class="row">
                                 <div class="col-sm-3 col-lg-2 hidden-xs">
                                     <img class="submit-comment-media" src="~/images/defaultpfp.jpg" alt="">
                                 </div>
-                            </div>
-
-                            <div class="comment col-xs-12 col-sm-9 col-lg-10">
-
-                                <textarea id="textareacomment" class="form-control" placeholder="Your thoughts on this course..."></textarea>
-
-                                <button id="submitComment" type="button" onclick="postComment()" class="btn btn-normal pull-right">Submit</button>
-
-
+                                <div class="comment col-xs-12 col-sm-9 col-lg-10">
+                                    <form>
+                                        <textarea id="textareacomment" class="form-control" placeholder="Your thoughts on this course..."></textarea>
+                                        <button id="submitComment" type="button" onclick="postComment()" class="btn btn-normal">Enviar</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
 
-
-                        <h3>Comments</h3>
+                        <h3>Discusión</h3>
                         <div class="course-comment-loader">
                             <div class="media">
                                 <div class="col-sm-3 col-lg-2 hidden-xs">
@@ -631,54 +574,42 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="text-container about">
-                        <h4>Few Words About Aria</h4>
-                        <p class="white">We're passionate about delivering the best business growth services for companies just starting out as startups or industry players that have established their market position a long tima ago.</p>
+                        <h4>Algunas palabras sobre Info-E</h4>
+                        <p class="white">Info-E es un proyecto de estudiantes para estudiantes desarrollado durante el curso Lenguajes para Aplicaciones Comerciales, en verano de 2025</p>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
                 <div class="col-md-2">
                     <div class="text-container">
-                        <h4>Links</h4>
+                        <h4>asc2-dev</h4>
                         <ul class="list-unstyled li-space-lg white">
                             <li>
-                                <a class="white" href="#your-link">startupguide.com</a>
+                                <a class="white" >Dennis Quirós</a>
                             </li>
                             <li>
-                                <a class="white" href="terms-conditions.html">Terms & Conditions</a>
+                                <a class="white">Jose Pablo Ramirez</a>
                             </li>
                             <li>
-                                <a class="white" href="privacy-policy.html">Privacy Policy</a>
+                                <a class="white">Jason Quesada</a>
                             </li>
+                            <li>
+                                <a   class="white">Lito Valverde</a>
+                            </li>
+                            
                         </ul>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
                 <div class="col-md-2">
                     <div class="text-container">
-                        <h4>Tools</h4>
+                        <h4>Otros accesos</h4>
                         <ul class="list-unstyled li-space-lg">
                             <li>
-                                <a class="white" href="#your-link">businessgrowth.com</a>
+                                <a class="white" href="#your-link">Info-E: Estudiantes</a>
                             </li>
                             <li>
-                                <a class="white" href="#your-link">influencers.com</a>
+                                <a class="white" href="#your-link">Info-E: Profesores</a>
                             </li>
                             <li class="media">
-                                <a class="white" href="#your-link">optimizer.net</a>
-                            </li>
-                        </ul>
-                    </div> <!-- end of text-container -->
-                </div> <!-- end of col -->
-                <div class="col-md-2">
-                    <div class="text-container">
-                        <h4>Partners</h4>
-                        <ul class="list-unstyled li-space-lg">
-                            <li>
-                                <a class="white" href="#your-link">unicorns.com</a>
-                            </li>
-                            <li>
-                                <a class="white" href="#your-link">staffmanager.com</a>
-                            </li>
-                            <li>
-                                <a class="white" href="#your-link">association.gov</a>
+                                <a class="white" href="#your-link">Info-E: Admin</a>
                             </li>
                         </ul>
                     </div> <!-- end of text-container -->
@@ -692,7 +623,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <p class="p-small">Copyright © 2020 <a href="https://inovatik.com">Template by Inovatik</a></p>
+                    <p class="p-small">Copyright © 2025 <a href="https://inovatik.com"</a>UCR-RP</p>
                 </div> <!-- end of col -->
             </div> <!-- enf of row -->
         </div> <!-- end of container -->
@@ -710,6 +641,8 @@
     <script src="js/isotope.pkgd.min.js"></script> <!-- Isotope for filter -->
     <script src="js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="js/scripts.js"></script> <!-- Custom scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="js/site.js"></script>
     <script src="js/modals.js"></script>
 </body>
