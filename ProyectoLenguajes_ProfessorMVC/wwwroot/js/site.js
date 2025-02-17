@@ -24,7 +24,7 @@ $(document).ready(function () {
         renderNews();
     });
 
-
+    LoadAppConsultations();
 });
 
 
@@ -138,6 +138,7 @@ function AuthenticateProfessor() {
             if (result === 1) {
                 alert("Autenticación exitosa.");
                 GetProfessorData(id);
+                LoadAppConsultations();
             } else if (result === -1) {
                 alert("El profesor no existe.");
             } else {
@@ -448,3 +449,251 @@ function UpdateProfessor() {
         }
     });
 }
+
+function LoadAppConsultations() {
+    var id = $("#professorID").text().trim(); //to change
+
+    $.ajax({
+        url: "/ApplicationConsultation/GetByProfessor/" + id,
+        type: "GET",
+        data: { idProfessor: id },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#previous_text').attr('hidden', false);
+            $('#student_app_photo').attr('hidden', true);
+            $('#student_app_name').attr('hidden', true);
+            $('#student_app_date').attr('hidden', true);
+            $('#student_app_text').attr('hidden', true);
+            $('#student_app_reply').attr('hidden', true);
+            $('#student_app_answer').attr('hidden', true);
+            $('#sender_app').attr('hidden', true);
+
+            var htmlTable = '';
+
+            $.each(result, function (index, item) {
+                var uniqueId = "name_sender_" + index;
+
+                htmlTable += '<tr>';
+                htmlTable += '<td class="email-info">';
+                if (item.status == 1) {
+                    htmlTable += '<h3 style="font-style: italic">' + item.text + '</h3>';
+                } else {
+                    htmlTable += '<h3>' + item.text + '</h3>';
+                }
+
+                htmlTable += '<p id="' + uniqueId + '">Loading...</p>';
+                htmlTable += '</td>';
+                htmlTable += '<td class="email-action">';
+                htmlTable += '<button class="btn btn-primary" onclick="LoadSpecificAppConsultation(' + item.id + ')">Open</button>';
+                htmlTable += '</td>';
+                htmlTable += '</tr>';
+
+
+                LoadNameSender(item.idStudent, function (name) {
+                    $("#" + uniqueId).text('From: ' + name);
+                });
+            });
+
+            $('#email-table-appointment').empty();
+            $('#email-table-appointment').html(htmlTable);
+        },
+        error: function (error) {
+            alert(error)
+        }
+    })
+}
+
+function LoadNameSender(id, callback) {
+    $.ajax({
+        url: "/Student/GetStudentPhoto/" + id,
+        type: "GET",
+        data: { id: id },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            callback(result.name + ' ' + result.lastName)
+        }, error: function (error) {
+            console.error(error);
+            callback('Error loading name');
+        }
+    });
+}
+
+
+
+function LoadSpecificAppConsultation(id) {
+    $.ajax({
+        url: "/ApplicationConsultation/GetById/" + id,
+        type: "GET",
+        data: { id: id },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+            $('#previous_text').attr('hidden', true);
+            $('#student_app_photo').attr('hidden', false);
+            $('#student_app_name').attr('hidden', false);
+            $('#student_app_date').attr('hidden', false);
+            $('#student_app_text').attr('hidden', false);
+            $('#student_app_reply').attr('hidden', false);
+            $('#student_app_answer').attr('hidden', false);
+            $('#sender_app').attr('hidden', false);
+
+            LoadNameSender(result.idStudent, function (name) {
+                $('#student_app_name').text(name);
+            });
+
+            $('#student_app_date').text(result.date);
+            $('#student_app_text').text(result.text);
+            if (result.status == 1) {
+                $('#student_app_answer').text(result.answer);
+            }
+            $('#student_app_idconsult').text(id.toString());
+            $('#student_app_student').text(result.idStudent);
+            $('#student_app_professor').text(result.idProfessor);
+        }
+    })
+}
+
+function PutAppConsultation() {
+    var applicationConsultation = {
+        id: $('#student_app_idconsult').text(),
+        text: $('#student_app_text').text(),
+        status: 1,
+        answer: $('#student_app_answer').val(),
+        idStudent: $('#student_app_student').text(),
+        idProfessor: $('#student_app_professor').text(),
+        date: $('#student_app_date').text()
+    };
+
+    $.ajax({
+        url: "/ApplicationConsultation/Put",
+        data: JSON.stringify(applicationConsultation),
+        type: "PUT",
+        contentType: "application/json",
+        processData: false,
+        dataType: "json",
+        success: function (result) {
+            alert('You answered the consultation successfully');
+            LoadAppConsultations();
+
+            answer: $('#student_app_answer').val('');
+        },
+        error: function (error) {
+            alert(error);
+        }
+    })
+}
+
+function GetPrivateConsultations() {
+    var id = $("#professorID").text().trim(); // Obtener ID del profesor
+
+    $.ajax({
+        url: "/PrivateConsultation/GetByProfessor/" + id,
+        type: "GET",
+        data: { idProfessor: id },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#previous_priv_text').attr('hidden', false);
+            $('#student_private_photo').attr('hidden', true);
+            $('#student_private_name').attr('hidden', true);
+            $('#student_private_date').attr('hidden', true);
+            $('#student_private_text').attr('hidden', true);
+            $('#student_private_reply').attr('hidden', true);
+            $('#student_private_answer').attr('hidden', true);
+            $('#sender_private').attr('hidden', true);
+
+            var htmlTable = '';
+
+            $.each(result, function (index, item) {
+                var uniqueId = "name_private_sender_" + index;
+
+                htmlTable += '<tr>';
+                htmlTable += '<td class="email-info">';
+                if (item.status == 0) {
+                    htmlTable += '<h3 style="font-weight: bold">' + item.text + '</h3>';
+                } else {
+                    htmlTable += '<h3>' + item.text + '</h3>';
+                }
+                htmlTable += '<p id="' + uniqueId + '"> Loading... </p>';
+                htmlTable += '</td>';
+                htmlTable += '<td class="email-action">';
+                htmlTable += '<button class="btn btn-primary" onclick="LoadSpecificPrivateConsultation(' + item.id + ')"> Open </button>';
+                htmlTable += '</td>';
+                htmlTable += '</tr>';
+
+                LoadNameSender(item.idStudent, function (name) {
+                    $("#" + uniqueId).text('From: ' + name);
+                });
+            });
+
+            $('#email-table-private').empty();
+            $('#email-table-private').html(htmlTable);
+        },
+        error: function (error) {
+            alert(error);
+        }
+    });
+}
+
+function LoadSpecificPrivateConsultation(id) {
+    $.ajax({
+        url: "/PrivateConsultation/GetById/" + id,
+        type: "GET",
+        data: { id: id },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $('#previous_priv_text').attr('hidden', true);
+            $('#student_private_photo').attr('hidden', false);
+            $('#student_private_name').attr('hidden', false);
+            $('#student_private_date').attr('hidden', false);
+            $('#student_private_text').attr('hidden', false);
+            $('#student_private_reply').attr('hidden', false);
+            $('#student_private_answer').attr('hidden', false);
+            $('#sender_private').attr('hidden', false);
+
+            LoadNameSender(result.idStudent, function (name) {
+                $('#student_private_name').text(name);
+            });
+
+            //$('#student_app_date').text(result.date); TODO: MODIFY DATABASE
+            $('#student_private_text').text(result.text);
+            $('#student_private_idconsult').text(id.toString());
+            $('#student_private_student').text(result.idStudent);
+            $('#student_private_professor').text(result.idProfessor);
+        }
+    })
+}
+
+function PutPrivateConsultation() {
+    var applicationConsultation = {
+        id: $('#student_private_idconsult').text(),
+        text: $('#student_private_text').text(),
+        status: 1,
+        answer: $('#student_private_answer').val(),
+        idStudent: $('#student_private_student').text(),
+        idProfessor: $('#student_private_professor').text(),
+    };
+
+    $.ajax({
+        url: "/PrivateConsultation/Put",
+        data: JSON.stringify(applicationConsultation),
+        type: "PUT",
+        contentType: "application/json",
+        processData: false,
+        dataType: "json",
+        success: function (result) {
+            alert('You answered the consultation successfully');
+            GetPrivateConsultations();
+
+            answer: $('#student_app_answer').val('');
+        },
+        error: function (error) {
+            alert(error);
+        }
+    })
+}
+
