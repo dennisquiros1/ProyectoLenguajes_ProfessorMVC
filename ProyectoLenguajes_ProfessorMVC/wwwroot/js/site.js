@@ -6,6 +6,43 @@ $(document).ready(function () {
     GetCoursesByCycle(1);
     loadNews();
 
+    //Required for courses and course comments
+    const courseModal = document.getElementById('courseModal');
+
+    const month = new Date().getMonth() + 1;
+
+    let fillHtml = "";
+
+    if (month >= 2 && month <= 7) {
+        fillHtml = `
+            <option value="I">I</option>
+            <option value="III">III</option>
+            <option value="V">V</option>
+            <option value="VII">VII</option>
+        `;
+    } else if (month >= 8 && month <= 12) {
+        fillHtml = `
+            <option value="II">II</option>
+            <option value="IV">IV</option>
+            <option value="VI">VI</option>
+            <option value="VIII">VIII</option>
+        `;
+    } else {
+        fillHtml = `
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="III">III</option>
+            <option value="IV">IV</option>
+            <option value="V">V</option>
+            <option value="VI">VI</option>
+            <option value="VII">VII</option>
+            <option value="VIII">VIII</option>
+        `;
+    }
+    //Required for courses and course comments
+    $("#cicles").html(fillHtml); 
+
+    //Required for courses and course comments
     $("#cicles").change(function () {
         let romanCycle = $(this).val();
         let cycle = convertRomanToInt(romanCycle);
@@ -27,12 +64,13 @@ $(document).ready(function () {
     LoadAppConsultations();
 });
 
-
+//Required for courses and course comments
 function convertRomanToInt(roman) {
     const romanMap = { "I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8 };
     return romanMap[roman] || 0;
 }
 
+//Required for courses and course comments
 function GetCoursesByCycle(cycle) {
     $.ajax({
         url: "/Course/GetByCycle?cycle=" + cycle,
@@ -44,7 +82,7 @@ function GetCoursesByCycle(cycle) {
             let tableBody = $("#coursesTable tbody");
             tableBody.empty(); 
 
-            if (courses.length > 0) {
+            if (courses != null) {
                 $.each(courses, function (index, course) {
                     let row = `<tr>
                                 <td>${course.acronym}</td>
@@ -69,7 +107,7 @@ function GetCoursesByCycle(cycle) {
 
 
 
-
+//Required for courses and course comments
 function GetCourseByAcronym(acronym) {
     $.ajax({
         url: "/Course/GetByAcronym?acronym=" + acronym,  
@@ -92,6 +130,8 @@ function GetCourseByAcronym(acronym) {
         }
     });
 }
+
+//Required for courses and course comments
 function displayCourseInfo(course) {
     GetCommentsByCourseId(course.acronym);
     $('#courseAcronym').text(course.acronym); 
@@ -101,6 +141,7 @@ function displayCourseInfo(course) {
 
 }
 
+//Required for courses and course comments
 function GetProfessorByCourse(id) {
     $.ajax({
         url: "/Professor/GetById?id=" + id,  
@@ -184,7 +225,7 @@ function GetProfessorData(id) {
 }
 
 
-
+//Required for courses and course comments
 function GetCommentsByCourseId(courseId) {
     $.ajax({
         url: "/CommentCourse/GetComments?acronym=" + courseId,
@@ -201,6 +242,7 @@ function GetCommentsByCourseId(courseId) {
     });
 }
 
+//Required for courses and course comments
 function loadComentarios(comments) {
     $(".course-comment-loader").empty();
 
@@ -215,6 +257,7 @@ function loadComentarios(comments) {
                 </div>
                 <div class="comment col-xs-12 col-sm-9 col-lg-10">
                     <h4 class="media-heading">${comment.idUser}</h4>
+                    <p>${comment.date}</p>
                     <p>${comment.contentC}</p>
                 </div>
             </div>
@@ -240,6 +283,7 @@ function loadComentarios(comments) {
     });
 }
 
+//Required for courses and course comments
 function GetPhoto(id, type) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -262,12 +306,20 @@ function GetPhoto(id, type) {
     });
 }
 
+//Required for courses and course comments
 function postComment() {
     var contentC = $("#textareacomment").val().trim(); 
     var acronym = $("#courseAcronym").text().trim(); 
+
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); 
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const date = `${year}-${month}-${day}`;
     var commentData = {
         contentC: contentC,
         acronym: acronym,
+        date: date,
         idUser: "C36373"
     };
     $.ajax({
@@ -695,5 +747,22 @@ function PutPrivateConsultation() {
             alert(error);
         }
     })
+
+
+    //Required for courses and course comments
+    const closeButtons = document.querySelectorAll('.custom-modal-close');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const modal = event.target.closest('.custom-modal');
+            closeModal(modal);
+        });
+    });
+
+    //Required for courses and course comments
+    function closeModal(modal) {
+        modal.style.display = 'none';
+        navigationBar.style.display = 'block';
+    }
+
 }
 

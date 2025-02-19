@@ -15,7 +15,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
                 using (var client = new HttpClient())
                 {
                     {
-                        client.BaseAddress = new Uri("https://localhost:7086/api/NewsComment/GetAll/");
+                        client.BaseAddress = new Uri("https://localhost:7020/api/NewsComment/GetAll/");
                         var responseTask = client.GetAsync("GetAll/" + id);
                         responseTask.Wait();
 
@@ -62,7 +62,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
                 using (var client = new HttpClient())
                 {
                     {
-                        client.BaseAddress = new Uri("https://localhost:7086/api/NewsComment/CheckType/");
+                        client.BaseAddress = new Uri("https://localhost:7020/api/NewsComment/CheckType/");
                         var responseTask = client.GetAsync("CheckType/" + id);
                         responseTask.Wait();
 
