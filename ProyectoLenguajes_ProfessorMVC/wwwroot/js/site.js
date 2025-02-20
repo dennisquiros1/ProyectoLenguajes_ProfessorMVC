@@ -711,7 +711,7 @@ function LoadSpecificPrivateConsultation(id) {
                 $('#student_private_name').text(name);
             });
 
-            //$('#student_app_date').text(result.date); TODO: MODIFY DATABASE
+            $('#student_private_date').text(result.date); //TODO: MODIFY DATABASE
             $('#student_private_text').text(result.text);
             $('#student_private_idconsult').text(id.toString());
             $('#student_private_student').text(result.idStudent);
