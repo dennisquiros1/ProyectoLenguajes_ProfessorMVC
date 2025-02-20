@@ -117,8 +117,6 @@ function GetCourseByAcronym(acronym) {
         dataType: "json",
         success: function (result) {
             if (result) {
-                
-                console.log(result);
                 displayCourseInfo(result);  
 
             } else {
@@ -336,12 +334,17 @@ function postComment() {
         },
         error: function (error) {
             alert("Error al enviar el comentario.");
-            console.log(error);
+
         }
     });
 }
 
 
+
+
+/*****************************/
+/*     Noticias              */
+/*****************************/
 
 function loadNews() {
     $.ajax({
@@ -361,6 +364,10 @@ function loadNews() {
                 });
             });
 
+            console.log(newsArray.length);
+
+
+
             renderNews();
         },
         error: function (errorMessage) {
@@ -369,6 +376,7 @@ function loadNews() {
     });
 
 }
+
 
 function moveNext() {
     let firstItem = newsArray.shift(); 
@@ -396,8 +404,6 @@ function renderNews() {
 
 
 }
-
-
 
 const link0 = document.getElementById("newsLink0");
 
@@ -431,7 +437,143 @@ function showNew() {
     document.getElementById('newDate').textContent = newsArray[newCurrentID].date;
     document.getElementById('newBody').textContent = newsArray[newCurrentID].paragraph;
 
+    loadNewsComments(newsArray[newCurrentID].idNew);
+
 }
+
+
+function loadNewsComments(id) {
+    $.ajax({
+        url: "/NewsComment/GetAll/",
+        type: "GET",
+        data: { id: id },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $("#NewsCommentsLoader").empty();
+
+            if (result.length > 0) {
+                let promises = result.map(comment => {
+                    return new Promise((resolve, reject) => {
+                        let photo = "/images/defaultpfp.jpg";
+                        let name = "Unknown!";
+
+                        CheckNewsCommentType(comment.idUser)
+                            .then(type => {
+                                if (type == 1) {
+                                    return GetProfessorCommentData(comment.idUser);
+                                } else if (type == -1) {
+                                    return GetStudentCommentData(comment.idUser);
+                                }
+                                return null;
+                            })
+                            .then(userData => {
+                                if (userData) {
+                                    photo = userData.photo || photo;
+                                    name = userData.name || name;
+                                }
+                                resolve({ name, photo, comment });
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                                resolve({ name, photo, comment }); // Evita que un error detenga todo
+                            });
+                    });
+                });
+
+                // Esperamos a que todas las promesas se resuelvan antes de mostrar los comentarios
+                Promise.all(promises).then(commentsData => {
+                    commentsData.forEach(({ name, photo, comment }) => {
+                        appendComment(name, photo, comment);
+                    });
+                });
+            }
+        },
+        error: function (errorMessage) {
+            console.error("Error al cargar los comentarios", errorMessage);
+        }
+    });
+}
+
+function appendComment(name, photo, comment) {
+   
+    let photoSrc = photo.startsWith("data:image") ? photo : `data:image/jpeg;base64,${photo}`;
+
+    var commentHtml = `
+        <div class="media">
+            <div class="col-sm-3 col-lg-2 hidden-xs">
+                <img class="comment-media-object" src="${photoSrc}" alt="User Profile">
+            </div>
+            <div class="comment col-xs-12 col-sm-9 col-lg-10">
+                <h4 class="media-heading">${name}</h4>
+                <h5 class="media-heading">${comment.date}</h5>
+                <p>${comment.contentC}</p>
+            </div>
+        </div>
+    `;
+
+    $("#NewsCommentsLoader").append(commentHtml);
+}
+
+
+
+function CheckNewsCommentType(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/NewsComment/CheckType/",
+            type: "GET",
+            data: { id: id },
+            contentType: "application/json;charset=utf-8",
+            dataType: "text",
+            success: function (result) {
+    
+
+                resolve(result);
+            },
+            error: function () {
+                alert("Not an ID");
+                reject("Error en la petición");
+            }
+        });
+    });
+}
+
+function GetProfessorCommentData(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/NewsComment/GetProfessorCommentData/",
+            type: "GET",
+            data: { id: id },
+            dataType: "json",
+            success: function (result) {
+                resolve(result);
+            },
+            error: function () {
+                alert("Error retrieving data");
+                reject("Error retrieving data");
+            }
+        });
+    });
+}
+
+function GetStudentCommentData(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/NewsComment/GetStudentCommentData/",
+            type: "GET",
+            data: { id: id },
+            dataType: "json",
+            success: function (result) {
+                resolve(result);
+            },
+            error: function () {
+                alert("Error retrieving data");
+                reject("Error retrieving data");
+            }
+        });
+    });
+}
+
 
 
 
@@ -566,7 +708,7 @@ function LoadNameSender(id, callback) {
         success: function (result) {
             callback(result.name + ' ' + result.lastName)
         }, error: function (error) {
-            console.error(error);
+
             callback('Error loading name');
         }
     });

@@ -2078,9 +2078,9 @@ table th,
     resize: none; /* Evita el redimensionamiento */
 }
 
-.course-comment-container .submit-comment-media{
-    height:100px;
-    width:100px;
+.course-comment-container .submit-comment-media {
+    height: 100px;
+    width: 100px;
 }
 
 .course-comment-form form .btn {
