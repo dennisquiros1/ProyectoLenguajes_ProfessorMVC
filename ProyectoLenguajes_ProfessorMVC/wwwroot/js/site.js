@@ -863,18 +863,19 @@ function LoadSpecificPrivateConsultation(id) {
 }
 
 function PutPrivateConsultation() {
-    var applicationConsultation = {
+    var privateConsultation = {
         id: $('#student_private_idconsult').text(),
         text: $('#student_private_text').text(),
         status: 1,
         answer: $('#student_private_answer').val(),
+        date: $('#student_private_date').text(),
         idStudent: $('#student_private_student').text(),
-        idProfessor: $('#student_private_professor').text(),
+        idProfessor: $('#student_private_professor').text()
     };
 
     $.ajax({
         url: "/PrivateConsultation/Put",
-        data: JSON.stringify(applicationConsultation),
+        data: JSON.stringify(privateConsultation),
         type: "PUT",
         contentType: "application/json",
         processData: false,
