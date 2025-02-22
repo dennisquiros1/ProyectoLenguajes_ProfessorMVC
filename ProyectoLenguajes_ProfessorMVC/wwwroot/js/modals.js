@@ -9,17 +9,23 @@ const mailNav = document.getElementById('emailNav');
 const mailModal = document.getElementById('emailModal');
 const discussionButton = document.getElementById('discussionButton');
 const courseModal = document.getElementById('courseModal');
-
+    
 //I hate github lmao
 function openModal(modal) {
     modal.style.display = 'flex';
     navigationBar.style.display = 'none';
+    document.getElementById('nextBtn').style.display = "none";
+    document.getElementById('prevBtn').style.display = "none";
+
 }
 
 function closeModal(modal) {
     modal.style.display = 'none';
-    navigationBar.style.display = 'block';
-}
+    navigationBar.style.display = 'flex';
+    document.getElementById('nextBtn').style.display = "flex";
+    document.getElementById('prevBtn').style.display = "flex";
+    
+}   
 
 closeButtons.forEach(button => {
     button.addEventListener('click', () => {

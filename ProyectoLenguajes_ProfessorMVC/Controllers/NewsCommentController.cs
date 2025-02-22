@@ -142,6 +142,36 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             return auxStudent;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] CommentNews commentNews)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("https://localhost:7020/api/NewsComment/");
+
+                    var postTask = await client.PostAsJsonAsync("PostComment", commentNews);
+
+                    var result = postTask;
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        return new JsonResult(result);
+                    }
+                    else
+                    {
+                        return new JsonResult(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Server error: {ex.Message}");
+                return StatusCode(500, ModelState); // Devuelves el error si ocurre una excepción
+            }
+        }
+
 
 
     }

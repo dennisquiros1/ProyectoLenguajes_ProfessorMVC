@@ -393,8 +393,7 @@ function loadNews() {
                     date: item.date
                 });
             });
-
-            console.log(newsArray.length);
+            
 
 
 
@@ -406,6 +405,9 @@ function loadNews() {
     });
 
 }
+
+
+
 function moveNext() {
     let firstItem = newsArray.shift(); 
     newsArray.push(firstItem);
@@ -581,6 +583,52 @@ function GetStudentCommentData(id) {
         });
     });
 }
+
+function postNewsComment() {
+    event.preventDefault();
+
+    var content = document.getElementById("newsCommentContent").value;
+    var userID = 'P0982';
+    var newsId = newsArray[newCurrentID].idNew;
+
+    if (content.trim() === "" || content === "Esribe un comentario") {
+        alert("No puedes enviar un comentario en blanco");
+        return;
+    }
+
+    var currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const date = `${year}-${month}-${day}`;
+
+    let CommentNews = {
+        idComment: 0,
+        idUser: userID,
+        idNew: newsId,
+        contentC: content,
+        Date: date
+    };
+
+       
+    $.ajax({
+        url: "/NewsComment/Post/",
+        type: "POST",
+        data: JSON.stringify(CommentNews),
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            document.getElementById("newsCommentContent").value = "";
+            loadNewsComments(newsId);
+        },
+        error: function (errorMessage) {
+            alert("Error posting the comment");
+        }
+    });
+}
+
+
+
 function imageToBase64(imgElement, callback) {
     const img = imgElement; // Elemento <img>
     const canvas = document.createElement('canvas');
@@ -926,7 +974,7 @@ function PutPrivateConsultation() {
     //Required for courses and course comments
     function closeModal(modal) {
         modal.style.display = 'none';
-        navigationBar.style.display = 'block';
+        navigationBar.style.display = 'flex';
     }
 
 }
