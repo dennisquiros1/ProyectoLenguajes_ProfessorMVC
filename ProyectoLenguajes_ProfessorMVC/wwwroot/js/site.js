@@ -1,7 +1,5 @@
 ﻿let newsArray = [];
 let newCurrentID = 1;
-
-
 $(document).ready(function () {
     GetCoursesByCycle(1);
     loadNews();
@@ -63,13 +61,11 @@ $(document).ready(function () {
 
     LoadAppConsultations();
 });
-
 //Required for courses and course comments
 function convertRomanToInt(roman) {
     const romanMap = { "I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8 };
     return romanMap[roman] || 0;
 }
-
 //Required for courses and course comments
 function GetCoursesByCycle(cycle) {
     $.ajax({
@@ -104,9 +100,6 @@ function GetCoursesByCycle(cycle) {
         }
     });
 }
-
-
-
 //Required for courses and course comments
 function GetCourseByAcronym(acronym) {
     $.ajax({
@@ -128,7 +121,6 @@ function GetCourseByAcronym(acronym) {
         }
     });
 }
-
 //Required for courses and course comments
 function displayCourseInfo(course) {
     GetCommentsByCourseId(course.acronym);
@@ -138,7 +130,6 @@ function displayCourseInfo(course) {
     GetProfessorByCourse(course.idProfessor); 
 
 }
-
 //Required for courses and course comments
 function GetProfessorByCourse(id) {
     $.ajax({
@@ -176,12 +167,13 @@ function AuthenticateProfessor() {
         success: function (result) {
             if (result === 1) {
                 alert("Autenticación exitosa.");
-                GetProfessorData(id);
+                GetProfessorData();
                 LoadAppConsultations();
+
+                $("#lId").val('');
+                $("#lPassword").val('');
             } else if (result === -1) {
                 alert("El profesor no existe.");
-            } else {
-                alert("Contraseña incorrecta.");
             }
         },
         error: function () {
@@ -189,15 +181,46 @@ function AuthenticateProfessor() {
         }
     });
 }
-
-function GetProfessorData(id) {
-    $.ajax({
-        url: "/Professor/GetById",
-        type: "GET",
-        data: { id: id },  // Asegurar que se envía el parámetro ID
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (professor) {
+function getStudentDataFromSession() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/Professor/GetStudentDataFromSession",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (student) {
+                resolve(student);
+            },
+            error: function () {
+                reject();
+                document.querySelector("#header").scrollIntoView({ behavior: "smooth" });//redirige al loggin
+            }
+        });
+    });
+}
+function checkSession() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "/Professor/IsSessionActive",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response && typeof response.isLoggedIn !== 'undefined') {
+                    resolve(response.isLoggedIn);
+                } else {
+                    reject(new Error("Respuesta inesperada del servidor"));
+                }
+            },
+            error: function (xhr, status, error) {
+                reject(new Error(`Error en la solicitud: ${status} - ${error}`));
+            }
+        });
+    });
+}
+function GetProfessorData() {
+    getStudentDataFromSession()
+        .then(professor => {
             if (professor) {
                 $("#professorName").text(professor.name + " " + professor.lastName);
                 $("#professorID").text(professor.id);
@@ -205,24 +228,21 @@ function GetProfessorData(id) {
                 $("#pName").val(professor.name);
                 $("#pSname").val(professor.lastName);
                 $("#pMail").val(professor.email);
+                $("#pExpertise").val(professor.expertise);
 
-                if (professor.profilePicture) {
-                    $("#profileModal img").attr("src", professor.profilePicture);
+                if (professor.photo) {
+                    $("#profileModal img").attr("src", `data:image/png;base64,${professor.photo}`);
                 }
-
+                disableEditingAll();
                 $("#profileModal").show();
-
             } else {
                 alert("No se encontraron datos del profesor.");
             }
-        },
-        error: function () {
+        })
+        .catch(() => {
             alert("Error al obtener los datos del profesor.");
-        }
-    });
+        });
 }
-
-
 //Required for courses and course comments
 function GetCommentsByCourseId(courseId) {
     $.ajax({
@@ -239,7 +259,6 @@ function GetCommentsByCourseId(courseId) {
         }
     });
 }
-
 //Required for courses and course comments
 function loadComentarios(comments) {
     $(".course-comment-loader").empty();
@@ -280,7 +299,6 @@ function loadComentarios(comments) {
             });
     });
 }
-
 //Required for courses and course comments
 function GetPhoto(id, type) {
     return new Promise((resolve, reject) => {
@@ -303,7 +321,6 @@ function GetPhoto(id, type) {
             });
     });
 }
-
 //Required for courses and course comments
 function postComment() {
     var contentC = $("#textareacomment").val().trim(); 
@@ -338,14 +355,27 @@ function postComment() {
         }
     });
 }
-
-
-
-
+function enableEditingAll() {
+    const fields = ['pName', 'pSname', 'pMail', 'pExpertise', 'pPic', 'pPass'];
+    fields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.removeAttribute('readonly');
+        }
+    });
+}
+function disableEditingAll() {
+    const fields = ['pName', 'pSname', 'pMail', 'pExpertise', 'pPic', 'pPass'];
+    fields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.setAttribute('readonly', true);
+        }
+    });
+}
 /*****************************/
 /*     Noticias              */
 /*****************************/
-
 function loadNews() {
     $.ajax({
         url: "/BreakingNews/Get",
@@ -376,22 +406,16 @@ function loadNews() {
     });
 
 }
-
-
 function moveNext() {
     let firstItem = newsArray.shift(); 
     newsArray.push(firstItem);
 }
-
-
 function movePrev() {
  
     let lastItem = newsArray.pop();
     newsArray.unshift(lastItem);
 
 }
-
-
 function renderNews() {
 
     document.getElementById('newImage0').src = `data:image/png;base64,${newsArray[0].photo}`;
@@ -404,30 +428,22 @@ function renderNews() {
 
 
 }
-
 const link0 = document.getElementById("newsLink0");
-
 const link1 = document.getElementById("newsLink1");
-
 const link2 = document.getElementById("newsLink2");
-
 link0.addEventListener('click', (event) => {
     newCurrentID = 0;
     showNew();
 });
-
 link1.addEventListener('click', (event) => {
     newCurrentID = 1;
     showNew();
 });
-
 link2.addEventListener('click', (event) => {
     newCurrentID = 2;
     showNew();
 
 });
-
-
 function showNew() {
 
     document.getElementById('newFullImage').src = `data:image/png;base64,${newsArray[newCurrentID].photo}`;
@@ -440,8 +456,6 @@ function showNew() {
     loadNewsComments(newsArray[newCurrentID].idNew);
 
 }
-
-
 function loadNewsComments(id) {
     $.ajax({
         url: "/NewsComment/GetAll/",
@@ -494,7 +508,6 @@ function loadNewsComments(id) {
         }
     });
 }
-
 function appendComment(name, photo, comment) {
    
     let photoSrc = photo.startsWith("data:image") ? photo : `data:image/jpeg;base64,${photo}`;
@@ -514,9 +527,6 @@ function appendComment(name, photo, comment) {
 
     $("#NewsCommentsLoader").append(commentHtml);
 }
-
-
-
 function CheckNewsCommentType(id) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -537,7 +547,6 @@ function CheckNewsCommentType(id) {
         });
     });
 }
-
 function GetProfessorCommentData(id) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -555,7 +564,6 @@ function GetProfessorCommentData(id) {
         });
     });
 }
-
 function GetStudentCommentData(id) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -573,13 +581,6 @@ function GetStudentCommentData(id) {
         });
     });
 }
-
-
-
-
-
-//Converters / Util stuff
-
 function imageToBase64(imgElement, callback) {
     const img = imgElement; // Elemento <img>
     const canvas = document.createElement('canvas');
@@ -594,9 +595,6 @@ function imageToBase64(imgElement, callback) {
 
     callback(base64String);
 }
-
-
-//Conversors
 function imageToBase64(imgElement, callback) {
     const img = imgElement; // Elemento <img>
     const canvas = document.createElement('canvas');
@@ -611,39 +609,71 @@ function imageToBase64(imgElement, callback) {
 
     callback(base64String);
 }
-
-    //Method for pass base64 to <img>
-    function base64ToImage(base64String, imgElement) {
+function base64ToImage(base64String, imgElement) {
         imgElement.src = `data:image/png;base64,${base64String}`;
 }
 function UpdateProfessor() {
     var id = $("#professorID").text().trim(); // Asegurar que el ID se obtiene bien
 
-    var updatedProfessor = {
-        Id: id,
-        Name: $("#pName").val(),      
-        LastName: $("#pSname").val(),
-        Email: $("#pMail").val(),
-        Password: $("#pPass").val()
-    };
+    getStudentDataFromSession()
+        .then(professor => {
+            var updatedProfessor = {
+                Id: id,
+                Name: $("#pName").val(),
+                LastName: $("#pSname").val(),
+                Email: $("#pMail").val(),
+                Password: $("#pPass").val(),
+                Expertise: $("#pExpertise").val(), // Obtener el contenido del campo de experiencia
+                Photo: professor.photo // Usar la foto de la sesión por defecto
+            };
 
-    $.ajax({
-        url: "/Professor/UpdateProfessor?id=" + encodeURIComponent(id), // ID en la URL
-        type: "PUT",
-        data: JSON.stringify(updatedProfessor), // Enviar solo el objeto como JSON
-        contentType: "application/json", // IMPORTANTE: Indicar que es JSON
-        processData: false, // IMPORTANTE: Evitar que jQuery procese los datos
-        dataType: "json",
-        success: function (response) {
-            GetProfessorData(id);
-        },
-        error: function (error) {
-            alert("Error al editar profesor");
+            var fileInput = document.getElementById('pPic');
+            var file = fileInput.files[0];
 
-        }
-    });
+            if (file) {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    updatedProfessor.Photo = reader.result.split(',')[1]; // Convertir la imagen a Base64 y agregarla al objeto
+
+                    // Enviar la solicitud AJAX con los datos actualizados
+                    $.ajax({
+                        url: "/Professor/UpdateProfessor?id=" + encodeURIComponent(id), // ID en la URL
+                        type: "PUT",
+                        data: JSON.stringify(updatedProfessor), // Enviar solo el objeto como JSON
+                        contentType: "application/json", // IMPORTANTE: Indicar que es JSON
+                        processData: false, // IMPORTANTE: Evitar que jQuery procese los datos
+                        dataType: "json",
+                        success: function (response) {
+                            GetProfessorData();
+                        },
+                        error: function (error) {
+                            alert("Error al editar profesor");
+                        }
+                    });
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // Enviar la solicitud AJAX con la foto de la sesión
+                $.ajax({
+                    url: "/Professor/UpdateProfessor?id=" + encodeURIComponent(id), // ID en la URL
+                    type: "PUT",
+                    data: JSON.stringify(updatedProfessor), // Enviar solo el objeto como JSON
+                    contentType: "application/json", // IMPORTANTE: Indicar que es JSON
+                    processData: false, // IMPORTANTE: Evitar que jQuery procese los datos
+                    dataType: "json",
+                    success: function (response) {
+                        GetProfessorData();
+                    },
+                    error: function (error) {
+                        alert("Error al editar profesor");
+                    }
+                });
+            }
+        })
+        .catch(() => {
+            alert("Error al obtener los datos del profesor.");
+        });
 }
-
 function LoadAppConsultations() {
     var id = $("#professorID").text().trim(); //to change
 
@@ -697,7 +727,6 @@ function LoadAppConsultations() {
         }
     })
 }
-
 function LoadNameSender(id, callback) {
     $.ajax({
         url: "/Student/GetStudentPhoto/" + id,
@@ -713,9 +742,6 @@ function LoadNameSender(id, callback) {
         }
     });
 }
-
-
-
 function LoadSpecificAppConsultation(id) {
     $.ajax({
         url: "/ApplicationConsultation/GetById/" + id,
@@ -749,7 +775,6 @@ function LoadSpecificAppConsultation(id) {
         }
     })
 }
-
 function PutAppConsultation() {
     var applicationConsultation = {
         id: $('#student_app_idconsult').text(),
@@ -779,7 +804,6 @@ function PutAppConsultation() {
         }
     })
 }
-
 function GetPrivateConsultations() {
     var id = $("#professorID").text().trim(); // Obtener ID del profesor
 
@@ -831,7 +855,6 @@ function GetPrivateConsultations() {
         }
     });
 }
-
 function LoadSpecificPrivateConsultation(id) {
     $.ajax({
         url: "/PrivateConsultation/GetById/" + id,
@@ -861,7 +884,6 @@ function LoadSpecificPrivateConsultation(id) {
         }
     })
 }
-
 function PutPrivateConsultation() {
     var privateConsultation = {
         id: $('#student_private_idconsult').text(),

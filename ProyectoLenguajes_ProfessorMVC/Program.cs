@@ -1,15 +1,22 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Habilitar la cache en memoria (requerido para sesiones)
+builder.Services.AddDistributedMemoryCache();
+
+// Habilitar el servicio de sesiones
+builder.Services.AddSession();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+// Middleware para sesiones (debe ir antes de UseAuthorization)
+app.UseSession();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

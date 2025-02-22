@@ -113,7 +113,7 @@
                             <p for="pName">Nombre:</p>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" id="pName" name="pName" class="form-control" value="Example">
+                            <input type="text" id="pName" name="pName" class="form-control" value="Example" readonly>
                         </div>
                     </div>
 
@@ -122,7 +122,7 @@
                             <p for="pSname">Apellido:</p>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" id="pSname" name="pSname" class="form-control" value="Example">
+                            <input type="text" id="pSname" name="pSname" class="form-control" value="Example" readonly>
                         </div>
                     </div>
 
@@ -131,7 +131,7 @@
                             <p for="pMail">Correo:</p>
                         </div>
                         <div class="col-md-6">
-                            <input type="email" id="pMail" name="pMail" class="form-control" value="example@gmail.com">
+                            <input type="email" id="pMail" name="pMail" class="form-control" value="example@gmail.com" readonly>
                         </div>
                     </div>
 
@@ -140,7 +140,7 @@
                             <label for="pExpertise">Descripción:</label>
                         </div>
                         <div class="col-md-6">
-                            <textarea id="pExpertise" name="pExpertise" class="form-control" rows="4">...</textarea>
+                            <textarea id="pExpertise" name="pExpertise" class="form-control" rows="4" readonly></textarea>
                         </div>
                     </div>
 
@@ -150,7 +150,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="pPic" class="file-label">Elegir archivo</label>
-                            <input type="file" id="pPic" name="pPic" class="form-control">
+                            <input type="file" id="pPic" name="pPic" class="form-control" readonly>
                         </div>
                     </div>
 
@@ -159,7 +159,7 @@
                             <p for="pPass">Contraseña:</p>
                         </div>
                         <div class="col-md-6">
-                            <input type="password" id="pPass" name="pPass" class="form-control" required>
+                            <input type="password" id="pPass" name="pPass" class="form-control" required readonly>
                         </div>
                     </div>
                 </div>
@@ -168,10 +168,9 @@
             <div class="row align-items-center">
                 <div class="col-md-6 text-right">
                     <!-- Buttons aligned to the right of the Likings section -->
-                    <button onclick="UpdateProfessor()" class="btn">Editar</button>
-                    <button onclick="" class="btn">Cancelar</button>
-                    <button onclick="" class="btn">Eliminar perfil</button>
-
+                    <button onclick="UpdateProfessor()" class="btn">Guardar</button>
+                    <button onclick="enableEditingAll()" class="btn">Editar</button>
+                    <button onclick="disableEditingAll(); GetProfessorData();" class="btn">Cancelar</button>
                 </div>
             </div>
         </div>
