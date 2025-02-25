@@ -40,6 +40,7 @@ $(document).ready(function () {
     //Required for courses and course comments
     $("#cicles").html(fillHtml); 
 
+
     //Required for courses and course comments
     $("#cicles").change(function () {
         let romanCycle = $(this).val();
@@ -47,6 +48,7 @@ $(document).ready(function () {
         GetCoursesByCycle(cycle);
     });
 
+    
 
     $('#nextBtn').click(function () {
         moveNext();
@@ -68,6 +70,8 @@ function convertRomanToInt(roman) {
 }
 //Required for courses and course comments
 function GetCoursesByCycle(cycle) {
+
+
     $.ajax({
         url: "/Course/GetByCycle?cycle=" + cycle,
         type: "GET",
@@ -96,7 +100,7 @@ function GetCoursesByCycle(cycle) {
             }
         },
         error: function () {
-            alert("Error retrieving courses.");
+            swal.fire("Error al traer los cursos.");
         }
     });
 }
@@ -113,11 +117,11 @@ function GetCourseByAcronym(acronym) {
                 displayCourseInfo(result);  
 
             } else {
-                alert("No se encontró el curso.");
+                swal.fire("No se encontró el curso.");
             }
         },
         error: function (errorMessage) {
-            alert("Error al obtener el curso.");
+            swal.fire("Error al obtener el curso.");
         }
     });
 }
@@ -142,15 +146,13 @@ function GetProfessorByCourse(id) {
             if (result) {
                
                 $('#assignedTeacher').text(result.name + " " + result.lastName);
-                const imgElement = document.getElementById('imageUser');
-                const base64Comment = result.photo;//Change for the photo de user in the application
-                base64ToImage(base64Comment, imgElement);
+  
             } else {
-                alert("No hay profesor asociado a este curso.");
+                swal.fire("No hay profesor asociado a este curso.");
             }
         },
         error: function (errorMessage) {
-            alert("Error al obtener el profesor.");
+            swal.fire("Error al obtener el profesor.");
         }
     });
 }
@@ -166,18 +168,30 @@ function AuthenticateProfessor() {
         dataType: "json",
         success: function (result) {
             if (result === 1) {
-                alert("Autenticación exitosa.");
+                //Required for courses and course comments
+                getStudentDataFromSession().then(student => {
+                    if (student) {
+                        var image = document.getElementById("imageUser");
+                        base64ToImage(student.photo, image)
+                    } else {
+                        swal.fire("Error", "No se encontraron datos del estudiante.", "error");
+                    }
+                }).catch(() => {
+
+                    document.querySelector("#header").scrollIntoView({ behavior: "smooth" });//redirige al loggin
+                });
+                swal.fire("Autenticación exitosa.");
                 GetProfessorData();
                 LoadAppConsultations();
 
                 $("#lId").val('');
                 $("#lPassword").val('');
             } else if (result === -1) {
-                alert("El profesor no existe.");
+                swal.fire("El profesor no existe.");
             }
         },
         error: function () {
-            alert("Error al autenticar.");
+            swal.fire("Error al autenticar.");
         }
     });
 }
@@ -209,11 +223,11 @@ function checkSession() {
                 if (response && typeof response.isLoggedIn !== 'undefined') {
                     resolve(response.isLoggedIn);
                 } else {
-                    reject(new Error("Respuesta inesperada del servidor"));
+                    swal.fire(new Error("Respuesta inesperada del servidor"));
                 }
             },
             error: function (xhr, status, error) {
-                reject(new Error(`Error en la solicitud: ${status} - ${error}`));
+                swal.fire(new Error(`Error en la solicitud: ${status} - ${error}`));
             }
         });
     });
@@ -236,11 +250,11 @@ function GetProfessorData() {
                 disableEditingAll();
                 $("#profileModal").show();
             } else {
-                alert("No se encontraron datos del profesor.");
+                swal.fire("No se encontraron datos del profesor.");
             }
         })
         .catch(() => {
-            alert("Error al obtener los datos del profesor.");
+            swal.fire("Error al obtener los datos del profesor.");
         });
 }
 //Required for courses and course comments
@@ -255,12 +269,14 @@ function GetCommentsByCourseId(courseId) {
             loadComentarios(comments);
         },
         error: function (errorMessage) {
-            console.error("Error fetching comments:", errorMessage);
+            swal.fire("Error fetching comments:", errorMessage);
         }
     });
 }
 //Required for courses and course comments
 function loadComentarios(comments) {
+
+
     $(".course-comment-loader").empty();
 
     comments.forEach(comment => {
@@ -295,7 +311,7 @@ function loadComentarios(comments) {
                 }
             })
             .catch(() => {
-                alert("Error to take photo.");
+                swal.fire("Error al obtener la foto.");
             });
     });
 }
@@ -331,28 +347,37 @@ function postComment() {
     const month = String(currentDate.getMonth() + 1).padStart(2, '0'); 
     const day = String(currentDate.getDate()).padStart(2, '0');
     const date = `${year}-${month}-${day}`;
-    var commentData = {
-        contentC: contentC,
-        acronym: acronym,
-        date: date,
-        idUser: "C36373"
-    };
-    $.ajax({
-        url: "/CommentCourse/Post",
-        type: "POST",
-        data: JSON.stringify(commentData),
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (response) {
+    getStudentDataFromSession().then(student => {
+        if (student) {
+            var commentData = {
+                content: content,
+                acronym: acronym,
+                idUser: student.id, // Usar el ID del estudiante desde la sesión
+                date: date
+            };
 
-            $("#message").val("");
-            GetCommentsByCourseId(acronym);
-            $("#textareacomment").val("")
-        },
-        error: function (error) {
-            alert("Error al enviar el comentario.");
-
+            $.ajax({
+                url: "/CommentCourse/Post",
+                type: "POST",
+                data: JSON.stringify(commentData),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $("#message").val("");
+                    GetCommentsByCourseId(acronym);
+                    $("#textareacomment").val("");
+                },
+                error: function (error) {
+                    swal.fire("Error", "Error al enviar el comentario.", "error");
+                }
+            });
+        } else {
+            swal.fire("Error", "No se encontraron datos del estudiante.", "error");
         }
+    }).catch(() => {
+        swal.fire("Error", "Error al obtener los datos del estudiante.", "error");
+
+        document.querySelector("#header").scrollIntoView({ behavior: "smooth" });//redirige al loggin
     });
 }
 function enableEditingAll() {
@@ -400,7 +425,7 @@ function loadNews() {
             renderNews();
         },
         error: function (errorMessage) {
-            alert("Error fething news");
+            swal.fire("Error fething news");
         }
     });
 
@@ -491,7 +516,7 @@ function loadNewsComments(id) {
                                 resolve({ name, photo, comment });
                             })
                             .catch(error => {
-                                console.error("Error:", error);
+                                swal.fire("Error:", error);
                                 resolve({ name, photo, comment }); // Evita que un error detenga todo
                             });
                     });
@@ -506,7 +531,7 @@ function loadNewsComments(id) {
             }
         },
         error: function (errorMessage) {
-            console.error("Error al cargar los comentarios", errorMessage);
+            swal.fire("Error al cargar los comentarios", errorMessage);
         }
     });
 }
@@ -543,7 +568,7 @@ function CheckNewsCommentType(id) {
                 resolve(result);
             },
             error: function () {
-                alert("Not an ID");
+                swal.fire("No es una identificación");
                 reject("Error en la petición");
             }
         });
@@ -560,7 +585,7 @@ function GetProfessorCommentData(id) {
                 resolve(result);
             },
             error: function () {
-                alert("Error retrieving data");
+                swal.fire("Error retrieving data");
                 reject("Error retrieving data");
             }
         });
@@ -577,7 +602,7 @@ function GetStudentCommentData(id) {
                 resolve(result);
             },
             error: function () {
-                alert("Error retrieving data");
+                swal.fire("Error retrieving data");
                 reject("Error retrieving data");
             }
         });
@@ -622,7 +647,7 @@ function postNewsComment() {
             loadNewsComments(newsId);
         },
         error: function (errorMessage) {
-            alert("Error posting the comment");
+            swal.fire("Error posting the comment");
         }
     });
 }
@@ -695,7 +720,7 @@ function UpdateProfessor() {
                             GetProfessorData();
                         },
                         error: function (error) {
-                            alert("Error al editar profesor");
+                            swal.fire("Error al editar profesor");
                         }
                     });
                 };
@@ -713,13 +738,13 @@ function UpdateProfessor() {
                         GetProfessorData();
                     },
                     error: function (error) {
-                        alert("Error al editar profesor");
+                        swal.fire("Error al editar profesor");
                     }
                 });
             }
         })
         .catch(() => {
-            alert("Error al obtener los datos del profesor.");
+            swal.fire("Error al obtener los datos del profesor.");
         });
 }
 function LoadAppConsultations() {
@@ -771,7 +796,7 @@ function LoadAppConsultations() {
             $('#email-table-appointment').html(htmlTable);
         },
         error: function (error) {
-            alert(error)
+            swal.fire(error)
         }
     })
 }
@@ -814,6 +839,17 @@ function LoadSpecificAppConsultation(id) {
 
             $('#student_app_date').text(result.date);
             $('#student_app_text').text(result.text);
+            /*
+            TODO: No esta colocando la foto del estudiante que realizo la consulta
+            GetPhoto(result.idStudent, "Student")
+                .then(photo => {
+                    var image = document.getElementById("student_private_photo");
+                    base64ToImage(photo, image);
+                })
+                .catch(() => {
+                    alert("Error to take photo.");
+             });
+             */
             if (result.status == 1) {
                 $('#student_app_answer').text(result.answer);
             }
@@ -842,13 +878,13 @@ function PutAppConsultation() {
         processData: false,
         dataType: "json",
         success: function (result) {
-            alert('You answered the consultation successfully');
+            swal.fire('You answered the consultation successfully');
             LoadAppConsultations();
 
             answer: $('#student_app_answer').val('');
         },
         error: function (error) {
-            alert(error);
+            swal.fire(error);
         }
     })
 }
@@ -899,7 +935,7 @@ function GetPrivateConsultations() {
             $('#email-table-private').html(htmlTable);
         },
         error: function (error) {
-            alert(error);
+            swal.fire(error);
         }
     });
 }
@@ -925,6 +961,19 @@ function LoadSpecificPrivateConsultation(id) {
             });
 
             $('#student_private_date').text(result.date); //TODO: MODIFY DATABASE
+
+            /*
+            TODO: No esta colocando la foto del estudiante que realizo la consulta
+           GetPhoto(result.idStudent, "Student")
+               .then(photo => {
+                   var image = document.getElementById("student_private_photo");
+                   base64ToImage(photo, image);
+               })
+               .catch(() => {
+                   alert("Error to take photo.");
+            });
+            */
+
             $('#student_private_text').text(result.text);
             $('#student_private_idconsult').text(id.toString());
             $('#student_private_student').text(result.idStudent);
@@ -951,13 +1000,13 @@ function PutPrivateConsultation() {
         processData: false,
         dataType: "json",
         success: function (result) {
-            alert('You answered the consultation successfully');
+            swal.fire('You answered the consultation successfully');
             GetPrivateConsultations();
 
             answer: $('#student_app_answer').val('');
         },
         error: function (error) {
-            alert(error);
+            swal.fire(error);
         }
     })
 
