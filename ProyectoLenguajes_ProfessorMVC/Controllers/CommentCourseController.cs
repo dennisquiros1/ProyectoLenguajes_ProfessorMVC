@@ -15,7 +15,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/CommentCourse/" + acronym);
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/CommentCourse/" + acronym);
                     var responseTask = client.GetAsync($"GetComments?acronym={acronym}");
                     responseTask.Wait();
 
@@ -45,7 +45,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/CommentCourse/");
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/CommentCourse/");
 
                     var postTask = await client.PostAsJsonAsync("PostComment", commentCourse);
 

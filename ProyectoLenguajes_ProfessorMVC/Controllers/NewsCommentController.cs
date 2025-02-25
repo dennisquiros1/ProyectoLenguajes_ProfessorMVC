@@ -15,7 +15,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
                 using (var client = new HttpClient())
                 {
                     {
-                        client.BaseAddress = new Uri("https://localhost:7020/api/NewsComment/");
+                        client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/NewsComment/");
                         var responseTask = client.GetAsync("GetAll/" + id);
                         responseTask.Wait();
 
@@ -61,7 +61,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/NewsComment/");
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/NewsComment/");
 
                     var response = await client.GetAsync("CheckType/" + id);
 
@@ -92,7 +92,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/NewsComment/");
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/NewsComment/");
 
                     var response = await client.GetAsync("GetProfessorCommentData/" + id);
 
@@ -122,7 +122,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/NewsComment/");
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/NewsComment/");
 
                     var response = await client.GetAsync("GetStudentCommentData/" + id);
 
@@ -149,7 +149,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/NewsComment/");
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/NewsComment/");
 
                     var postTask = await client.PostAsJsonAsync("PostComment", commentNews);
 

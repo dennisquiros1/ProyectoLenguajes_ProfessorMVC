@@ -16,7 +16,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
                 using (var client = new HttpClient())
                 {
                     {
-                        client.BaseAddress = new Uri("https://localhost:7020/api/News/GetAll");
+                        client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/News/GetAll");
                         var responseTask = client.GetAsync("GetAll");
                         responseTask.Wait();
 

@@ -16,7 +16,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
 
                 using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:7020/api/Course/" + acronym);
+                client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/Course/" + acronym);
                 var responseTask = client.GetAsync($"GetByAcronym?acronym={acronym}");
                 responseTask.Wait();
 
@@ -53,7 +53,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/Course/" + cycle);
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/Course/" + cycle);
                     var responseTask = client.GetAsync($"GetByCycle?cycle={cycle}");
                     responseTask.Wait();
 

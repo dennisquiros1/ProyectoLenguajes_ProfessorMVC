@@ -14,7 +14,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/PrivateConsultation/GetPrivateByProfessor/" + idProfessor);
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/PrivateConsultation/GetPrivateByProfessor/" + idProfessor);
                     var responseTalk = client.GetAsync(client.BaseAddress);
                     responseTalk.Wait();
 
@@ -44,7 +44,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/PrivateConsultation/Get/" + id);
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/PrivateConsultation/Get/" + id);
                     var responseTalk = client.GetAsync(client.BaseAddress);
                     responseTalk.Wait();
 
@@ -73,7 +73,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/PrivateConsultation/");
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/PrivateConsultation/");
                     var putTask = client.PutAsJsonAsync("Put/", consultation);
 
                     putTask.Wait();

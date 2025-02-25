@@ -16,7 +16,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
 
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/Professor/" + id);
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/Professor/" + id);
                     var responseTask = client.GetAsync($"GetById?id={id}");
                     responseTask.Wait();
 
@@ -59,7 +59,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/Professor/");
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/Professor/");
                     var response = await client.GetAsync($"Authenticate?id={id}&password={password}");
 
                     if (response.IsSuccessStatusCode)
@@ -133,7 +133,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
 
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/Professor/" + id);
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/Professor/" + id);
                     var responseTask = client.GetAsync($"GetById?id={id}");
                     responseTask.Wait();
 
@@ -167,7 +167,7 @@ namespace ProyectoLenguajes_ProfessorMVC.Controllers
             {
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:7020/api/Professor/");
+                    client.BaseAddress = new Uri("https://apiprofessor-chb6c2brfrdfajg3.brazilsouth-01.azurewebsites.net/api/Professor/");
                     var responseTask = client.PutAsJsonAsync($"EditProfessor?id={id}", updatedProfessor);
                     responseTask.Wait();
 
