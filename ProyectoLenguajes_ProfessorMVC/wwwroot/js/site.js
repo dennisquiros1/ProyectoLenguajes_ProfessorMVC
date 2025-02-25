@@ -418,8 +418,8 @@ function loadNews() {
                     date: item.date
                 });
             });
-            
 
+            newsArray = newsArray.reverse();
 
 
             renderNews();
@@ -786,7 +786,6 @@ function LoadAppConsultations() {
                 htmlTable += '</td>';
                 htmlTable += '</tr>';
 
-
                 LoadNameSender(item.idStudent, function (name) {
                     $("#" + uniqueId).text('From: ' + name);
                 });
@@ -833,23 +832,17 @@ function LoadSpecificAppConsultation(id) {
             $('#student_app_answer').attr('hidden', false);
             $('#sender_app').attr('hidden', false);
 
+            LoadPhotoSender(result.idStudent, function (photo) {
+                var image = document.getElementById("student_app_photo");
+                base64ToImage(photo, image);
+            });
+
             LoadNameSender(result.idStudent, function (name) {
                 $('#student_app_name').text(name);
             });
 
             $('#student_app_date').text(result.date);
             $('#student_app_text').text(result.text);
-            /*
-            TODO: No esta colocando la foto del estudiante que realizo la consulta
-            GetPhoto(result.idStudent, "Student")
-                .then(photo => {
-                    var image = document.getElementById("student_private_photo");
-                    base64ToImage(photo, image);
-                })
-                .catch(() => {
-                    alert("Error to take photo.");
-             });
-             */
             if (result.status == 1) {
                 $('#student_app_answer').text(result.answer);
             }
@@ -913,16 +906,13 @@ function GetPrivateConsultations() {
                 var uniqueId = "name_private_sender_" + index;
 
                 htmlTable += '<tr>';
-                htmlTable += '<td class="email-info">';
+                htmlTable += '<td class="email-info" onclick="LoadSpecificPrivateConsultation(' + item.id + ')" style="cursor: pointer;">';
                 if (item.status == 0) {
                     htmlTable += '<h3 style="font-weight: bold">' + item.text + '</h3>';
                 } else {
                     htmlTable += '<h3>' + item.text + '</h3>';
                 }
                 htmlTable += '<p id="' + uniqueId + '"> Loading... </p>';
-                htmlTable += '</td>';
-                htmlTable += '<td class="email-action">';
-                htmlTable += '<button class="btn btn-primary" onclick="LoadSpecificPrivateConsultation(' + item.id + ')"> Open </button>';
                 htmlTable += '</td>';
                 htmlTable += '</tr>';
 
@@ -956,28 +946,23 @@ function LoadSpecificPrivateConsultation(id) {
             $('#student_private_answer').attr('hidden', false);
             $('#sender_private').attr('hidden', false);
 
+            
+
             LoadNameSender(result.idStudent, function (name) {
                 $('#student_private_name').text(name);
             });
 
             $('#student_private_date').text(result.date); //TODO: MODIFY DATABASE
 
-            /*
-            TODO: No esta colocando la foto del estudiante que realizo la consulta
-           GetPhoto(result.idStudent, "Student")
-               .then(photo => {
-                   var image = document.getElementById("student_private_photo");
-                   base64ToImage(photo, image);
-               })
-               .catch(() => {
-                   alert("Error to take photo.");
-            });
-            */
-
             $('#student_private_text').text(result.text);
             $('#student_private_idconsult').text(id.toString());
             $('#student_private_student').text(result.idStudent);
             $('#student_private_professor').text(result.idProfessor);
+
+            LoadPhotoSender(result.idStudent, function (photo) {
+                var image = document.getElementById("student_private_photo");
+                base64ToImage(photo, image);
+            });
         }
     })
 }
@@ -1026,5 +1011,20 @@ function PutPrivateConsultation() {
         navigationBar.style.display = 'flex';
     }
 
+}
+
+function LoadPhotoSender(id, callback) {
+    $.ajax({
+        url: "/Student/GetStudentPhoto/" + id,
+        type: "GET",
+        data: { id: id },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            callback(result.photo);
+        }, error: function (error) {
+            callback('Error loading photo');
+        }
+    });
 }
 
