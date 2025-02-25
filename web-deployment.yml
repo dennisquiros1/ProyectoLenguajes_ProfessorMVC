@@ -1,0 +1,29 @@
+trigger:
+- master
+
+pool:
+  name: my_agent_pool
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: "Compilación"
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/ProyectoLenguajes_ProfessorMVC'
+
+- task: DotNetCoreCLI@2
+  displayName: "Publicación"
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    workingDirectory: '$(System.DefaultWorkingDirectory)/ProyectoLenguajes_ProfessorMVC'
+
+- task: AzureRmWebAppDeployment@5
+  displayName: "Despliegue"
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(9afab68a-66ca-4dab-a1ad-c92b01fe176c)'
+    appType: 'webApp'
+    WebAppName: 'PortalProfesor'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
