@@ -618,7 +618,6 @@ function postNewsComment() {
     event.preventDefault();
 
     var content = document.getElementById("newsCommentContent").value;
-    var userID = 'P0982';
     var newsId = newsArray[newCurrentID].idNew;
 
     if (content.trim() === "" || content === "Esribe un comentario") {
@@ -632,29 +631,47 @@ function postNewsComment() {
     const day = String(currentDate.getDate()).padStart(2, '0');
     const date = `${year}-${month}-${day}`;
 
-    let CommentNews = {
-        idComment: 0,
-        idUser: userID,
-        idNew: newsId,
-        contentC: content,
-        Date: date
-    };
+   
+
+    getStudentDataFromSession().then(professor => {
+        if (professor) {
+            let CommentNews = {
+                idComment: 0,
+                idUser: professor.id,
+                idNew: newsId,
+                contentC: content,
+                Date: date
+            };
+
+            
+            $.ajax({
+                url: "/NewsComment/Post/",
+                type: "POST",
+                data: JSON.stringify(CommentNews),
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    document.getElementById("newsCommentContent").value = "";
+                    loadNewsComments(newsId);
+                },
+                error: function (errorMessage) {
+                    swal.fire("Error posting the comment");
+                }
+            });
+
+
+        } else {
+            swal.fire("Error", "No se encontraron datos del profesor.", "error");
+        }
+    }).catch(() => {
+        swal.fire("Error", "Error al obtener los datos del profesor.", "error");
+
+        document.querySelector("#header").scrollIntoView({ behavior: "smooth" });//redirige al loggin
+    });
+
 
        
-    $.ajax({
-        url: "/NewsComment/Post/",
-        type: "POST",
-        data: JSON.stringify(CommentNews),
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            document.getElementById("newsCommentContent").value = "";
-            loadNewsComments(newsId);
-        },
-        error: function (errorMessage) {
-            swal.fire("Error posting the comment");
-        }
-    });
+    
 }
 
 
