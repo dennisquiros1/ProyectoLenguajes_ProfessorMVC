@@ -1,66 +1,78 @@
 ﻿let newsArray = [];
 let newCurrentID = 1;
 $(document).ready(function () {
-    GetCoursesByCycle(1);
-    loadNews();
-
-    //Required for courses and course comments
-    const courseModal = document.getElementById('courseModal');
-
-    const month = new Date().getMonth() + 1;
-
-    let fillHtml = "";
-
-    if (month >= 2 && month <= 7) {
-        fillHtml = `
-            <option value="I">I</option>
-            <option value="III">III</option>
-            <option value="V">V</option>
-            <option value="VII">VII</option>
-        `;
-    } else if (month >= 8 && month <= 12) {
-        fillHtml = `
-            <option value="II">II</option>
-            <option value="IV">IV</option>
-            <option value="VI">VI</option>
-            <option value="VIII">VIII</option>
-        `;
-    } else {
-        fillHtml = `
-            <option value="I">I</option>
-            <option value="II">II</option>
-            <option value="III">III</option>
-            <option value="IV">IV</option>
-            <option value="V">V</option>
-            <option value="VI">VI</option>
-            <option value="VII">VII</option>
-            <option value="VIII">VIII</option>
-        `;
-    }
-    //Required for courses and course comments
-    $("#cicles").html(fillHtml); 
-
-
-    //Required for courses and course comments
-    $("#cicles").change(function () {
-        let romanCycle = $(this).val();
-        let cycle = convertRomanToInt(romanCycle);
-        GetCoursesByCycle(cycle);
-    });
-
     
+    getStudentDataFromSession().then(professor => {
+   
+        if (professor) {
+            GetCoursesByCycle(1);
+            loadNews();
 
-    $('#nextBtn').click(function () {
-        moveNext();
-        renderNews();
+        //Required for courses and course comments
+        const courseModal = document.getElementById('courseModal');
+
+        const month = new Date().getMonth() + 1;
+
+        let fillHtml = "";
+
+        if (month >= 2 && month <= 7) {
+            fillHtml = `
+            <option value="I">I</option>
+            <option value="III">III</option>
+            <option value="V">V</option>
+            <option value="VII">VII</option>
+        `;
+        } else if (month >= 8 && month <= 12) {
+            fillHtml = `
+            <option value="II">II</option>
+            <option value="IV">IV</option>
+            <option value="VI">VI</option>
+            <option value="VIII">VIII</option>
+        `;
+        } else {
+            fillHtml = `
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="III">III</option>
+            <option value="IV">IV</option>
+            <option value="V">V</option>
+            <option value="VI">VI</option>
+            <option value="VII">VII</option>
+            <option value="VIII">VIII</option>
+        `;
+        }
+        //Required for courses and course comments
+        $("#cicles").html(fillHtml);
+
+
+        //Required for courses and course comments
+        $("#cicles").change(function () {
+            let romanCycle = $(this).val();
+            let cycle = convertRomanToInt(romanCycle);
+            GetCoursesByCycle(cycle);
+        });
+
+
+
+        $('#nextBtn').click(function () {
+            moveNext();
+            renderNews();
+        });
+
+
+        $('#prevBtn').click(function () {
+            movePrev();
+            renderNews();
+        });
+
+            
+        } else {
+            swal.fire("Error", "No se encontraron datos del estudiante.", "error");
+        }
+    }).catch(() => {
+
+        document.querySelector("#header").scrollIntoView({ behavior: "smooth" });//redirige al loggin
     });
-
-
-    $('#prevBtn').click(function () {
-        movePrev();
-        renderNews();
-    });
-
     LoadAppConsultations();
 });
 //Required for courses and course comments
@@ -168,22 +180,10 @@ function AuthenticateProfessor() {
         dataType: "json",
         success: function (result) {
             if (result === 1) {
-                //Required for courses and course comments
-                getStudentDataFromSession().then(student => {
-                    if (student) {
-                        var image = document.getElementById("imageUser");
-                        base64ToImage(student.photo, image)
-                    } else {
-                        swal.fire("Error", "No se encontraron datos del estudiante.", "error");
-                    }
-                }).catch(() => {
-
-                    document.querySelector("#header").scrollIntoView({ behavior: "smooth" });//redirige al loggin
-                });
-                swal.fire("Autenticación exitosa.");
-                GetProfessorData();
+                setTimeout(function () {
+                    location.reload();
+                }, 0);
                 LoadAppConsultations();
-
                 $("#lId").val('');
                 $("#lPassword").val('');
             } else if (result === -1) {
@@ -203,6 +203,12 @@ function getStudentDataFromSession() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (student) {
+                //Required for courses and course comments
+                var image = document.getElementById("imageUser");
+                base64ToImage(student.photo, image);
+                var imageNew = document.getElementById("userImageNews");
+                base64ToImage(student.photo, imageNew);
+                GetProfessorData();
                 resolve(student);
             },
             error: function () {
@@ -248,7 +254,6 @@ function GetProfessorData() {
                     $("#profileModal img").attr("src", `data:image/png;base64,${professor.photo}`);
                 }
                 disableEditingAll();
-                $("#profileModal").show();
             } else {
                 swal.fire("No se encontraron datos del profesor.");
             }

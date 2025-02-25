@@ -35,15 +35,6 @@
 </head>
 <body data-spy="scroll" data-target=".fixed-top">
     @RenderBody()
-    <!-- Preloader -->
-    <div class="spinner-wrapper">
-        <div class="spinner">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-        </div>
-    </div>
-    <!-- end of preloader -->
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top" id="navBar">
         <!-- Text Logo - Use this if you don't have a graphic logo -->
@@ -417,7 +408,7 @@
                         <div class="news-comment-form">
                             <div class="row">
                                 <div class="col-sm-3 col-lg-2 hidden-xs">
-                                    <img class="submit-comment-media" src="~/images/defaultpfp.jpg" alt="">
+                                    <img class="submit-comment-media" src="~/images/defaultpfp.jpg" alt="" id="userImageNews">
                                 </div>
 
                                 <div class="comment col-xs-12 col-sm-9 col-lg-10">
@@ -618,7 +609,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
-    <script src="js/po.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
     <script src="js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
     <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
     <script src="js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
