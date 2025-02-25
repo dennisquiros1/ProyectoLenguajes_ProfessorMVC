@@ -347,12 +347,12 @@ function postComment() {
     const month = String(currentDate.getMonth() + 1).padStart(2, '0'); 
     const day = String(currentDate.getDate()).padStart(2, '0');
     const date = `${year}-${month}-${day}`;
-    getStudentDataFromSession().then(student => {
-        if (student) {
+    getStudentDataFromSession().then(professor => {
+        if (professor) {
             var commentData = {
-                content: content,
+                contentC: contentC,
                 acronym: acronym,
-                idUser: student.id, // Usar el ID del estudiante desde la sesión
+                idUser: professor.id, // Usar el ID del estudiante desde la sesión
                 date: date
             };
 
@@ -372,10 +372,10 @@ function postComment() {
                 }
             });
         } else {
-            swal.fire("Error", "No se encontraron datos del estudiante.", "error");
+            swal.fire("Error", "No se encontraron datos del profesor.", "error");
         }
     }).catch(() => {
-        swal.fire("Error", "Error al obtener los datos del estudiante.", "error");
+        swal.fire("Error", "Error al obtener los datos del profesor.", "error");
 
         document.querySelector("#header").scrollIntoView({ behavior: "smooth" });//redirige al loggin
     });
